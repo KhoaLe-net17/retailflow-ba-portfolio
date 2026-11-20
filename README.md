@@ -104,26 +104,19 @@ The portfolio owner performs the analysis. Any role-play, simulated interview, o
 
 ## Proposed workflow
 
-The diagram below is a high-level flowchart. A detailed BPMN model with responsibilities, handoffs, and exceptions is a planned deliverable.
+The high-level workflow is split into return handling and refund processing. A detailed BPMN model with responsibilities, handoffs, and exceptions is a planned deliverable.
 
-```mermaid
-flowchart TD
-    A[Return request submitted] --> B{Eligible under agreed policy?}
-    B -->|No| C[Record rejection and reason]
-    B -->|Yes| D{Additional approval required?}
-    D -->|Yes| E[Manager reviews request]
-    E -->|Rejected| C
-    E -->|Approved| F[Receive and inspect goods]
-    D -->|No| F
-    F --> G{Inspection accepted?}
-    G -->|No| H[Record discrepancy and route for resolution]
-    G -->|Yes| I[Calculate and confirm refund]
-    I --> J[Submit refund to payment mock]
-    J --> K{Payment outcome}
-    K -->|Confirmed success| L[Reconcile and close]
-    K -->|Confirmed failure| M[Resolve failure before controlled retry]
-    K -->|Unknown or pending| N[Reconcile before any new payout attempt]
-```
+### Return handling
+
+![Return handling: assess eligibility, obtain approval when required, inspect goods, and confirm the refund amount.](diagrams/return-handling.svg)
+
+[View full-size diagram](diagrams/return-handling.svg) · [Diagram source](diagrams/return-handling.dot)
+
+### Refund processing
+
+![Refund processing: submit the refund, then handle confirmed success, confirmed failure, or an unknown or pending payment outcome.](diagrams/refund-processing.svg)
+
+[View full-size diagram](diagrams/refund-processing.svg) · [Diagram source](diagrams/refund-processing.dot)
 
 Return handling and payment handling will have separate state models. Receiving an item or approving a return does not by itself mean that a refund has succeeded.
 

@@ -1,0 +1,18 @@
+digraph RefundProcessing {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.35", nodesep="0.40", ranksep="0.50", splines=polyline];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=20, fontcolor="#172b4d", color="#8aa4c7", fillcolor="#f1f6fc", penwidth=1.4, margin="0.20,0.14"];
+  edge [fontname="Arial", fontsize=16, fontcolor="#334e68", color="#627d98", penwidth=1.4, arrowsize=0.8];
+
+  confirmed [label="Refund amount\nconfirmed"];
+  submit [label="Submit refund to\npayment mock"];
+  outcome [shape=diamond, style=filled, label="Payment\noutcome?", fillcolor="#edf0ff", color="#8794d8", margin="0.14,0.06"];
+  success [label="Reconcile\nand close", fillcolor="#eaf7f0", color="#76ad91"];
+  failure [label="Resolve failure\nbefore controlled retry", fillcolor="#fff1f0", color="#d89c96"];
+  pending [label="Reconcile before\nany new payout attempt", fillcolor="#fff7e6", color="#d1b270"];
+
+  confirmed -> submit;
+  submit -> outcome;
+  outcome -> success [label="Confirmed\nsuccess"];
+  outcome -> failure [label="Confirmed\nfailure"];
+  outcome -> pending [label="Unknown\nor pending"];
+}

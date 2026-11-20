@@ -1,0 +1,26 @@
+digraph ReturnHandling {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.35", nodesep="0.50", ranksep="0.42", splines=polyline];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=20, fontcolor="#172b4d", color="#8aa4c7", fillcolor="#f1f6fc", penwidth=1.4, margin="0.20,0.14"];
+  edge [fontname="Arial", fontsize=16, fontcolor="#334e68", color="#627d98", penwidth=1.4, arrowsize=0.8];
+
+  submitted [label="Return request\nsubmitted"];
+  eligible [shape=diamond, style=filled, label="Eligible under\nreturn policy?", fillcolor="#edf0ff", color="#8794d8", margin="0.14,0.06"];
+  approval [shape=diamond, style=filled, label="Manager approval\nrequired?", fillcolor="#edf0ff", color="#8794d8", margin="0.14,0.06"];
+  review [label="Manager reviews\nrequest"];
+  rejected [label="Reject request\nand record reason", fillcolor="#fff1f0", color="#d89c96"];
+  inspect [label="Receive and\ninspect goods"];
+  accepted [shape=diamond, style=filled, label="Inspection\naccepted?", fillcolor="#edf0ff", color="#8794d8", margin="0.14,0.06"];
+  discrepancy [label="Record discrepancy\nand route for resolution", fillcolor="#fff7e6", color="#d1b270"];
+  refund [label="Calculate and\nconfirm refund", fillcolor="#eaf7f0", color="#76ad91"];
+
+  submitted -> eligible;
+  eligible -> approval [label="Yes"];
+  eligible -> rejected [label="No"];
+  approval -> review [label="Yes"];
+  approval -> inspect [label="No"];
+  review -> inspect [label="Approved"];
+  review -> rejected [label="Rejected"];
+  inspect -> accepted;
+  accepted -> refund [label="Yes"];
+  accepted -> discrepancy [label="No"];
+}
