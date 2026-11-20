@@ -10,7 +10,7 @@ A personal business analysis case study exploring how a retail chain could manag
 
 [Repository](https://github.com/KhoaLe-net17/retailflow-ba-portfolio) · [Questions and feedback](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/issues)
 
-> **Project context:** RetailFlow is an independent learning project based on a fictional retailer. Business conditions, policies, and data are proposed assumptions until validated. This repository does not represent a client engagement, a production deployment, or measured business results.
+> **Project context:** RetailFlow is an independent business analysis case study based on a fictional retailer. Business conditions, policies, and data are proposed assumptions until validated. This repository does not represent a client engagement, a production deployment, or measured business results.
 
 ## Contents
 
@@ -23,7 +23,6 @@ A personal business analysis case study exploring how a retail chain could manag
 - [Worked analysis example](#worked-analysis-example)
 - [Analysis deliverables](#analysis-deliverables)
 - [Data and integration design](#data-and-integration-design)
-- [Delivery roadmap](#delivery-roadmap)
 - [Repository structure](#repository-structure)
 - [Tools and working approach](#tools-and-working-approach)
 - [Quality and completion criteria](#quality-and-completion-criteria)
@@ -37,8 +36,6 @@ RetailFlow follows the business analysis lifecycle from understanding an operati
 The scenario involves a fictional retailer operating one online sales channel and three physical stores. Customers may request a return for an online purchase at a store. Customer service, store staff, warehouse staff, managers, and finance need a shared view of each request.
 
 The portfolio will demonstrate how business needs connect to process models, business rules, requirements, interface designs, data models, integration specifications, and acceptance tests.
-
-**Learning commitment:** approximately 8–10 hours per week over 10 weeks. Portfolio artifacts will be written primarily in English; learning notes may include Vietnamese explanations.
 
 ## Business problem and objectives
 
@@ -195,7 +192,7 @@ All items below are planned unless the progress section explicitly states otherw
 
 The conceptual data model will explore orders, order lines, products, return requests, return lines, inspections, refund instructions, payment attempts, users, roles, and audit events.
 
-Planned SQL exercises will answer business questions such as:
+Planned SQL analyses will answer business questions such as:
 
 - Which return requests remain unresolved, and for how long?
 - How much returnable quantity remains after completed and reserved requests?
@@ -206,23 +203,6 @@ Planned SQL exercises will answer business questions such as:
 Planned integration specifications will cover order lookup, return submission, inspection results, refund initiation, and payment status updates. They will address validation, authorization, error responses, idempotency, and duplicate or out-of-order events.
 
 No API server, database, or runnable application is provided by this README. Setup instructions will be added when executable artifacts exist.
-
-## Delivery roadmap
-
-This is a learning schedule, not a record of completed work.
-
-| Week | Focus | Reviewable output |
-| --- | --- | --- |
-| 1 | BA fundamentals, business problem, and scope | Project brief and proposed success measures |
-| 2 | Stakeholders and elicitation | Interview questions, labeled evidence, and assumption log |
-| 3 | Process modeling | As-is and To-be models with exception paths |
-| 4 | Requirements and policy analysis | Requirements catalog, business rules, and decision table |
-| 5 | Agile requirements and prioritization | Prioritized backlog with testable acceptance criteria |
-| 6 | Interaction and screen design | Wireframes and screen behavior specifications |
-| 7 | Data analysis | ERD, data dictionary, and SQL examples with sample outputs |
-| 8 | Integration and system behavior | API contract, sequence diagrams, and non-functional requirements |
-| 9 | Validation and change management | UAT package, traceability, and one analyzed change request |
-| 10 | Evaluation and presentation | Reviewed case study, walkthrough, and portfolio summary |
 
 ## Repository structure
 
@@ -280,7 +260,7 @@ Work will be organized into small, reviewable issues. Requirements will receive 
 ## Current progress
 
 - [x] Select the project topic and define an initial scenario.
-- [x] Prepare the README and proposed delivery roadmap.
+- [x] Prepare the project overview and proposed analysis scope.
 - [ ] Complete discovery and resolve initial policy assumptions.
 - [ ] Model business processes and document requirements.
 - [ ] Design screens, data structures, and integration contracts.
