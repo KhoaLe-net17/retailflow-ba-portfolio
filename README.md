@@ -6,7 +6,7 @@ A personal business analysis case study exploring how a retail chain could manag
 
 **Owner:** [Anh Kho](https://github.com/KhoaLe-net17) (`KhoaLe-net17`) · Third-year Information Technology student at the University of Economics Ho Chi Minh City (UEH)
 
-**Role:** IT Business Analyst · **Domain:** Retail operations · **Status:** Project planning
+**Role:** IT Business Analyst · **Domain:** Retail operations · **Status:** Discovery — project brief drafted
 
 [Repository](https://github.com/KhoaLe-net17/retailflow-ba-portfolio) · [Questions and feedback](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/issues)
 
@@ -168,7 +168,7 @@ The example demonstrates the analysis approach. It is not evidence that the work
 
 ## Analysis deliverables
 
-All items below are planned unless the progress section explicitly states otherwise. Paths are target locations and may not exist yet.
+The [project brief](docs/01-discovery/project-brief.md) is available as a draft. Other artifacts below remain planned unless the progress section explicitly states otherwise. Paths are target locations and may not exist yet.
 
 | Workstream | Planned artifacts | Target location |
 | --- | --- | --- |
@@ -254,13 +254,14 @@ Work will be organized into small, reviewable issues. Requirements will receive 
 
 - [x] Select the project topic and define an initial scenario.
 - [x] Prepare the project overview and proposed analysis scope.
+- [x] Draft the [project brief](docs/01-discovery/project-brief.md) with three proposed objectives, scope boundaries, assumptions, and open discovery questions.
 - [ ] Complete discovery and resolve initial policy assumptions.
 - [ ] Model business processes and document requirements.
 - [ ] Design screens, data structures, and integration contracts.
 - [ ] Prepare and execute applicable validation exercises.
 - [ ] Analyze a change request and finalize the portfolio case study.
 
-The current deliverable is this project introduction and plan. Detailed artifacts, validation results, and deployment links will be added as the work is completed.
+Available artifacts include this project overview, two proposed workflow diagrams, and the draft project brief. Discovery questions remain open; no stakeholder validation, completed requirements, or executed tests are claimed. Further artifacts and actual validation results will be added as the work is completed.
 
 ## Author and project integrity
 
