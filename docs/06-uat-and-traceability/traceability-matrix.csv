@@ -1,0 +1,15 @@
+objective,requirement,story,business_rules,acceptance_scenarios,design,implementation,evidence
+OBJ-01,FR-001,US-01,BR-002,UAT-01,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-002,US-02,BR-001;BR-003;BR-011,UAT-02;UAT-03;UAT-04;UAT-05;UAT-06,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-003,US-03,BR-002;BR-011,UAT-07;UAT-08;UAT-09;UAT-31,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-004,US-04,BR-005;BR-008,UAT-10;UAT-11;UAT-12;UAT-13;UAT-14,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-005,US-05,BR-007;BR-008,UAT-15;UAT-16;UAT-17,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-03,FR-006,US-02,BR-003;BR-004,UAT-18;UAT-19,docs/05-data-and-integration/data-dictionary.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-03,FR-007,US-06,BR-004;BR-006;BR-009,UAT-20;UAT-21;UAT-22;UAT-23,docs/05-data-and-integration/integration-design.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-03,FR-008,US-07,BR-009;BR-010,UAT-24;UAT-25;UAT-26;UAT-27,docs/05-data-and-integration/integration-design.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-03,FR-009,US-08,BR-009,UAT-28;UAT-29,docs/05-data-and-integration/integration-design.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-010,US-09,BR-012,UAT-30;UAT-32,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-01,FR-011,US-10,BR-007;BR-009,UAT-33,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-01,FR-012,US-11,BR-008,UAT-34,docs/04-solution-design/screen-specification.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-02,FR-013,US-12,BR-011,UAT-35;UAT-36,docs/05-data-and-integration/integration-design.md,demo/domain.mjs,evidence/validation-results.json
+OBJ-03,FR-014,US-10,BR-002;BR-004;BR-010,UAT-37,docs/05-data-and-integration/data-dictionary.md,sql/02-analysis.sql,evidence/validation-results.json

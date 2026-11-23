@@ -10,6 +10,8 @@
 | Date | 2026-11-23 |
 | Evidence status | Scenario assumptions; stakeholder validation pending |
 
+> Historical discovery draft. The later [case-study policy](../03-requirements/business-rules.md) selects assumptions for synthetic validation; the [evidence log](evidence-and-assumptions.md) records their status. This initial brief preserves the starting questions, rather than the current implementation inventory.
+
 ## 1. Context
 
 RetailFlow explores returns and refunds for a fictional retailer operating one online sales channel and three physical stores in one market, using VND. The primary scenario is a customer returning an online purchase at a physical store. Customer service, store staff, inventory staff, store managers, and finance need consistent information as the request moves between teams.

@@ -1,0 +1,94 @@
+{
+  "clock": "2026-11-23T09:00:00Z",
+  "engine": "PostgreSQL via PGlite",
+  "cleanSeed": [
+    [
+      {
+        "id": "L-01",
+        "purchased_qty": 2,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 2
+      },
+      {
+        "id": "L-02",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-03",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-04",
+        "purchased_qty": 3,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 3
+      },
+      {
+        "id": "L-05",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-06",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "afterSuccessfulPartialReturn": [
+    [
+      {
+        "id": "L-01",
+        "purchased_qty": 2,
+        "reserved_or_returned_qty": 1,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-02",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-03",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-04",
+        "purchased_qty": 3,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 3
+      },
+      {
+        "id": "L-05",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      },
+      {
+        "id": "L-06",
+        "purchased_qty": 1,
+        "reserved_or_returned_qty": 0,
+        "remaining_qty": 1
+      }
+    ],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}
