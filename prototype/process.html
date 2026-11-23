@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RetailFlow · BPMN models</title>
+    <link rel="stylesheet" href="/prototype/styles.css" />
+    <script src="/node_modules/bpmn-js/dist/bpmn-viewer.development.js"></script>
+    <style>
+      body {
+        background: white;
+      }
+      .process-header {
+        padding: 24px 30px;
+        border-bottom: 1px solid #dde5e8;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .process-header a {
+        color: #246555;
+      }
+      .process-header select {
+        width: 300px;
+        margin: 0;
+      }
+      #canvas {
+        height: 76vh;
+        width: 100%;
+      }
+      #status {
+        padding: 12px 30px;
+        font-size: 14px;
+      }
+      .djs-container svg {
+        font-family: Arial, sans-serif !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="process-header">
+      <a href="/">Return to workbench</a><strong>BPMN 2.0 models</strong
+      ><select id="model" aria-label="Select process">
+        <option value="as-is">Assumed current process</option>
+        <option value="to-be-returns" selected>Proposed returns</option>
+        <option value="to-be-payments">Proposed payments</option></select
+      ><button id="export">Download SVG</button
+      ><button class="secondary" id="fit">Fit diagram</button>
+    </div>
+    <p id="status" role="status">Loading model…</p>
+    <div id="canvas"></div>
+    <script>
+      const viewer = new BpmnJS({ container: "#canvas" }),
+        select = document.querySelector("#model");
+      async function load() {
+        document.querySelector("#export").disabled = true;
+        try {
+          const response = await fetch("/diagrams/" + select.value + ".bpmn");
+          if (!response.ok) throw new Error("Model unavailable");
+          const result = await viewer.importXML(await response.text());
+          viewer.get("canvas").zoom("fit-viewport");
+          document.querySelector("#status").textContent =
+            select.value +
+            " · Fictional analysis model · " +
+            result.warnings.length +
+            " import warnings · Rendered with bpmn-js";
+        } catch (e) {
+          document.querySelector("#status").textContent = e.message;
+        } finally {
+          document.querySelector("#export").disabled = false;
+        }
+      }
+      select.addEventListener("change", load);
+      document
+        .querySelector("#fit")
+        .addEventListener("click", () =>
+          viewer.get("canvas").zoom("fit-viewport"),
+        );
+      document.querySelector("#export").addEventListener("click", async () => {
+        const { svg } = await viewer.saveSVG();
+        const blob = new Blob([svg], { type: "image/svg+xml" }),
+          url = URL.createObjectURL(blob),
+          a = document.createElement("a");
+        a.href = url;
+        a.download = select.value + ".svg";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      });
+      load();
+    </script>
+  </body>
+</html>

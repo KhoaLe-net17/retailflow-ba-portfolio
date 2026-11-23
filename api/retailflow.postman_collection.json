@@ -1,0 +1,247 @@
+{
+  "info": {
+    "name": "RetailFlow synthetic acceptance walkthrough",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:4173/api"
+    },
+    {
+      "key": "returnId",
+      "value": ""
+    },
+    {
+      "key": "refundId",
+      "value": ""
+    },
+    {
+      "key": "attemptId",
+      "value": ""
+    },
+    {
+      "key": "providerRef",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Lookup order",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "agent-1"
+          }
+        ],
+        "url": "{{baseUrl}}/orders/O-100"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Order found', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Preview 250000 VND",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "agent-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/return-previews",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": \"O-100\",\n  \"storeId\": \"S01\",\n  \"reasonCode\": \"NOT_SUITABLE\",\n  \"items\": [\n    {\n      \"orderLineId\": \"L-01\",\n      \"quantity\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Correct preview', () => pm.expect(pm.response.json().amountVnd).to.eql(250000));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Create return",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "agent-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/return-requests",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": \"O-100\",\n  \"storeId\": \"S01\",\n  \"reasonCode\": \"NOT_SUITABLE\",\n  \"items\": [\n    {\n      \"orderLineId\": \"L-01\",\n      \"quantity\": 1\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Created', () => pm.response.to.have.status(201));",
+              "pm.collectionVariables.set('returnId', pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Accept inspection",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "store-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/return-requests/{{returnId}}/inspection",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"passed\": true,\n  \"reason\": \"Synthetic goods received intact\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "05 - Mock unknown payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "finance-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Idempotency-Key",
+            "value": "postman-refund-001"
+          }
+        ],
+        "url": "{{baseUrl}}/refunds",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"returnId\": \"{{returnId}}\",\n  \"simulationOutcome\": \"UNKNOWN\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Unknown requires reconciliation', () => pm.expect(pm.response.json().status).to.eql('UNKNOWN'));",
+              "const r=pm.response.json(); for (const k of ['id','attemptId','providerRef']) pm.collectionVariables.set(k==='id'?'refundId':k,r[k]);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Reconcile existing attempt",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "provider-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/payment-events",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"eventId\": \"postman-event-001\",\n  \"attemptId\": \"{{attemptId}}\",\n  \"providerRef\": \"{{providerRef}}\",\n  \"status\": \"SUCCEEDED\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "07 - Inspect final queue",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-Actor",
+            "value": "finance-1"
+          }
+        ],
+        "url": "{{baseUrl}}/workbench"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('One successful refund', () => pm.expect(pm.response.json().refunds[0].status).to.eql('SUCCEEDED'));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

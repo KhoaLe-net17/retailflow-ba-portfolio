@@ -1,0 +1,27 @@
+{
+  "name": "retailflow-ba-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "RetailFlow business analysis case study and synthetic reference demonstrator",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "start": "node demo/server.mjs",
+    "test": "node tools/validate.mjs",
+    "diagrams": "node tools/render-diagrams.mjs",
+    "check:contract": "python tools/validate_contract.py",
+    "format": "prettier --write demo prototype tools package.json"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.17",
+    "@viz-js/viz": "3.31.0",
+    "bpmn-js": "18.33.1",
+    "bpmn-moddle": "10.3.1"
+  },
+  "devDependencies": {
+    "prettier": "3.10.1"
+  }
+}
