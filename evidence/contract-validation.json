@@ -1,0 +1,111 @@
+{
+  "executedAt": "2026-11-23T10:50:20.391710+00:00",
+  "tool": "openapi-spec-validator + jsonschema Draft202012Validator",
+  "openapi": "3.1.1",
+  "description": "PASS",
+  "capturedResponses": [
+    {
+      "path": "/health",
+      "method": "get",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/orders",
+      "method": "get",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/orders/{id}",
+      "method": "get",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/workbench",
+      "method": "get",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "path": "/workbench",
+      "method": "get",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-previews",
+      "method": "post",
+      "status": 400,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-previews",
+      "method": "post",
+      "status": 415,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-previews",
+      "method": "post",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-requests",
+      "method": "post",
+      "status": 201,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-requests/{id}/approval",
+      "method": "post",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-requests/{id}/inspection",
+      "method": "post",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/refunds",
+      "method": "post",
+      "status": 201,
+      "result": "PASS"
+    },
+    {
+      "path": "/refunds/{id}/retry",
+      "method": "post",
+      "status": 201,
+      "result": "PASS"
+    },
+    {
+      "path": "/payment-events",
+      "method": "post",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/workbench",
+      "method": "get",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-requests",
+      "method": "post",
+      "status": 201,
+      "result": "PASS"
+    },
+    {
+      "path": "/return-requests/{id}/cancellation",
+      "method": "post",
+      "status": 200,
+      "result": "PASS"
+    }
+  ],
+  "boundary": "Actual local HTTP responses; not a provider integration or production compatibility test."
+}

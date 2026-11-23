@@ -1,0 +1,17 @@
+digraph ERD {
+graph [rankdir=LR,bgcolor="white",pad="0.4",nodesep="0.5",ranksep="0.8"];
+node [shape=record,fontname="Arial",fontsize=13,color="#86a7a4",style="filled",fillcolor="#eff6f3",margin="0.15,0.12"];
+edge [color="#5c7a82",fontname="Arial",fontsize=11];
+orders [label="{orders|PK id|delivered_at|currency}" ];
+lines [label="{order_lines|PK id|FK order_id|quantity / net_paid_vnd}"];
+units [label="{order_units|PK id|FK line_id|ordinal / net_paid_vnd}"];
+returns [label="{return_requests|PK id|FK order_id / requester_id|status / amount_vnd}"];
+ru [label="{return_units|PK return_id + unit_id|active|unique active unit}"];
+refunds [label="{refund_instructions|PK id|UNIQUE FK return_id|status / amount_vnd}"];
+attempts [label="{payment_attempts|PK id|FK refund_id|UNIQUE provider_ref|attempt_no / status}"];
+events [label="{payment_events|PK event_id|FK attempt_id|fingerprint / disposition}"];
+actors [label="{actors|PK id|role}"];
+audit [label="{audit_events|PK id|FK actor_id|entity_id / action / detail}"];
+idem [label="{idempotency_records|PK key|FK actor_id|fingerprint / response_json}"];
+orders -> lines [label="1:N"];lines -> units [label="1:N"];orders -> returns [label="1:N"];returns -> ru [label="1:N"];units -> ru [label="1:N history"];returns -> refunds [label="1:0..1"];refunds -> attempts [label="1:N"];attempts -> events [label="1:N"];actors -> returns [label="1:N"];actors -> audit [label="1:N"];actors -> idem [label="1:N"];
+}

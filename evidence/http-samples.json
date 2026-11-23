@@ -1,0 +1,344 @@
+[
+  {
+    "path": "/health",
+    "method": "get",
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "context": "synthetic-local-demo",
+      "now": "2026-11-23T09:00:00Z",
+      "policy": {
+        "version": "0.1",
+        "windowDays": 30,
+        "approvalThresholdVnd": 500000,
+        "currency": "VND"
+      }
+    }
+  },
+  {
+    "path": "/orders",
+    "method": "get",
+    "status": 200,
+    "body": [
+      {
+        "id": "O-100",
+        "delivered_at": "2026-11-10T02:00:00.000Z",
+        "currency": "VND",
+        "status": "PAID"
+      },
+      {
+        "id": "O-200",
+        "delivered_at": "2026-11-20T02:00:00.000Z",
+        "currency": "VND",
+        "status": "PAID"
+      },
+      {
+        "id": "O-EDGE",
+        "delivered_at": "2026-10-24T09:00:00.000Z",
+        "currency": "VND",
+        "status": "PAID"
+      },
+      {
+        "id": "O-FUTURE",
+        "delivered_at": "2026-11-24T02:00:00.000Z",
+        "currency": "VND",
+        "status": "PAID"
+      },
+      {
+        "id": "O-OLD",
+        "delivered_at": "2026-09-01T02:00:00.000Z",
+        "currency": "VND",
+        "status": "PAID"
+      }
+    ]
+  },
+  {
+    "path": "/orders/{id}",
+    "method": "get",
+    "status": 200,
+    "body": {
+      "id": "O-100",
+      "delivered_at": "2026-11-10T02:00:00.000Z",
+      "currency": "VND",
+      "status": "PAID",
+      "lines": [
+        {
+          "id": "L-01",
+          "order_id": "O-100",
+          "product_name": "Cotton shirt",
+          "category": "APPAREL",
+          "purchased_qty": 2,
+          "gross_vnd": 600000,
+          "discount_vnd": 100000,
+          "net_paid_vnd": 500000,
+          "remaining_qty": 2
+        }
+      ]
+    }
+  },
+  {
+    "path": "/workbench",
+    "method": "get",
+    "status": 401,
+    "body": {
+      "code": "DEMO_ACTOR_REQUIRED",
+      "message": "Select a known synthetic actor."
+    }
+  },
+  {
+    "path": "/workbench",
+    "method": "get",
+    "status": 401,
+    "body": {
+      "code": "DEMO_ACTOR_REQUIRED",
+      "message": "Select a known synthetic actor."
+    }
+  },
+  {
+    "path": "/return-previews",
+    "method": "post",
+    "status": 400,
+    "body": {
+      "code": "INVALID_JSON",
+      "message": "Request body is not valid JSON."
+    }
+  },
+  {
+    "path": "/return-previews",
+    "method": "post",
+    "status": 415,
+    "body": {
+      "code": "JSON_REQUIRED",
+      "message": "Use Content-Type: application/json."
+    }
+  },
+  {
+    "path": "/return-previews",
+    "method": "post",
+    "status": 200,
+    "body": {
+      "amountVnd": 250000,
+      "currency": "VND",
+      "approvalRequired": false,
+      "policyVersion": "0.1",
+      "unitIds": [
+        "U-01"
+      ]
+    }
+  },
+  {
+    "path": "/return-requests",
+    "method": "post",
+    "status": 201,
+    "body": {
+      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "status": "AWAITING_APPROVAL",
+      "amountVnd": 250000,
+      "currency": "VND"
+    }
+  },
+  {
+    "path": "/return-requests/{id}/approval",
+    "method": "post",
+    "status": 200,
+    "body": {
+      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "status": "APPROVED"
+    }
+  },
+  {
+    "path": "/return-requests/{id}/inspection",
+    "method": "post",
+    "status": 200,
+    "body": {
+      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "status": "ACCEPTED"
+    }
+  },
+  {
+    "path": "/refunds",
+    "method": "post",
+    "status": 201,
+    "body": {
+      "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+      "returnId": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "amountVnd": 250000,
+      "currency": "VND",
+      "status": "FAILED",
+      "attemptId": "PA-9cf31c28-208e-4735-bbef-840fc6ce13ea",
+      "providerRef": "MOCK-41237e47-4379-466d-9fc2-8bac17fecb5a",
+      "replayed": false
+    }
+  },
+  {
+    "path": "/refunds/{id}/retry",
+    "method": "post",
+    "status": 201,
+    "body": {
+      "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+      "returnId": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "amountVnd": 250000,
+      "currency": "VND",
+      "status": "UNKNOWN",
+      "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e",
+      "providerRef": "MOCK-255e0ebc-6145-4d84-bd0a-497e1e19bf8b",
+      "replayed": false
+    }
+  },
+  {
+    "path": "/payment-events",
+    "method": "post",
+    "status": 200,
+    "body": {
+      "eventId": "event-001",
+      "disposition": "APPLIED",
+      "replayed": false
+    }
+  },
+  {
+    "path": "/workbench",
+    "method": "get",
+    "status": 200,
+    "body": {
+      "returns": [
+        {
+          "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "order_id": "O-100",
+          "store_id": "S01",
+          "reason_code": "DAMAGED",
+          "requester_id": "agent-1",
+          "status": "COMPLETED",
+          "amount_vnd": 250000,
+          "created_at": "2026-11-23T09:00:00.000Z",
+          "updated_at": "2026-11-23T09:00:00.000Z"
+        }
+      ],
+      "refunds": [
+        {
+          "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "return_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "amount_vnd": 250000,
+          "status": "SUCCEEDED",
+          "created_at": "2026-11-23T09:00:00.000Z",
+          "updated_at": "2026-11-23T09:00:00.000Z",
+          "attempt_id": "PA-3b66d463-78e7-445e-a0bc-464a445a844e",
+          "provider_ref": "MOCK-255e0ebc-6145-4d84-bd0a-497e1e19bf8b",
+          "attempt_no": 2
+        }
+      ],
+      "audit": [
+        {
+          "id": 7,
+          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "actor_id": "provider-1",
+          "action": "RETURN_COMPLETED",
+          "before_status": "ACCEPTED",
+          "after_status": "COMPLETED",
+          "detail": {
+            "refundId": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 6,
+          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "actor_id": "provider-1",
+          "action": "PAYMENT_RECONCILED",
+          "before_status": "UNKNOWN",
+          "after_status": "SUCCEEDED",
+          "detail": {
+            "amountVnd": 250000,
+            "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 5,
+          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "actor_id": "finance-1",
+          "action": "MOCK_PAYMENT_RESULT",
+          "before_status": "FAILED",
+          "after_status": "UNKNOWN",
+          "detail": {
+            "amountVnd": 250000,
+            "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 4,
+          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "actor_id": "finance-1",
+          "action": "MOCK_PAYMENT_RESULT",
+          "before_status": "PENDING",
+          "after_status": "FAILED",
+          "detail": {
+            "amountVnd": 250000,
+            "attemptId": "PA-9cf31c28-208e-4735-bbef-840fc6ce13ea"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 3,
+          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "actor_id": "store-1",
+          "action": "GOODS_INSPECTED",
+          "before_status": "APPROVED",
+          "after_status": "ACCEPTED",
+          "detail": {
+            "reason": "Intact",
+            "inventoryDisposition": "RESTOCK_CANDIDATE"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 2,
+          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "actor_id": "manager-1",
+          "action": "APPROVAL_DECISION",
+          "before_status": "AWAITING_APPROVAL",
+          "after_status": "APPROVED",
+          "detail": {
+            "reason": "Case reviewed"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        },
+        {
+          "id": 1,
+          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "actor_id": "agent-1",
+          "action": "RETURN_CREATED",
+          "before_status": null,
+          "after_status": "AWAITING_APPROVAL",
+          "detail": {
+            "unitIds": [
+              "U-01"
+            ],
+            "policyVersion": "0.1"
+          },
+          "created_at": "2026-11-23T09:00:00.000Z"
+        }
+      ]
+    }
+  },
+  {
+    "path": "/return-requests",
+    "method": "post",
+    "status": 201,
+    "body": {
+      "id": "R-4d1f543c-bdbc-4b41-8eec-8bde6c73e8e5",
+      "status": "APPROVED",
+      "amountVnd": 250000,
+      "currency": "VND"
+    }
+  },
+  {
+    "path": "/return-requests/{id}/cancellation",
+    "method": "post",
+    "status": 200,
+    "body": {
+      "id": "R-4d1f543c-bdbc-4b41-8eec-8bde6c73e8e5",
+      "status": "CANCELLED"
+    }
+  }
+]

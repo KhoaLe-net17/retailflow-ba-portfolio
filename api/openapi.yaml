@@ -1,0 +1,1466 @@
+openapi: 3.1.1
+info:
+  title: RetailFlow Reference API
+  version: 1.0.0
+  description: Synthetic local demonstrator of selected BA rules. Not a production
+    retailer API. X-Demo-Actor is a role-test fixture, not authentication. Fixed clock
+    and in-memory data reset on restart.
+servers:
+- url: http://127.0.0.1:4173/api
+  description: Loopback-only local reference server
+security:
+- DemoActor: []
+paths:
+  /health:
+    get:
+      operationId: health
+      summary: Read synthetic environment
+      description: Read synthetic environment
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      security: []
+  /orders:
+    get:
+      operationId: listOrders
+      summary: List synthetic paid orders
+      description: List synthetic paid orders
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      summary: Find original order and remaining quantities
+      description: Find original order and remaining quantities
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+  /workbench:
+    get:
+      operationId: workbench
+      summary: Read returns, latest payment attempts, and audit
+      description: Read returns, latest payment attempts, and audit
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workbench'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+  /return-previews:
+    post:
+      operationId: previewReturn
+      summary: Preview eligibility and refund without side effects
+      description: AGENT or MANAGER. Rechecked on create; preview neither reserves
+        units nor initiates payment.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preview'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnInput'
+  /return-requests:
+    post:
+      operationId: createReturn
+      summary: Create request and atomically reserve units
+      description: Create request and atomically reserve units
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnCreated'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnInput'
+  /return-requests/{id}/approval:
+    post:
+      operationId: decideApproval
+      summary: Approve or reject an exception
+      description: MANAGER only; requester cannot decide own exception. Reason required.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transition'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalInput'
+  /return-requests/{id}/inspection:
+    post:
+      operationId: inspectGoods
+      summary: Record accepted goods or a discrepancy
+      description: STORE only; APPROVED state required. No actual inventory write.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transition'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InspectionInput'
+  /return-requests/{id}/cancellation:
+    post:
+      operationId: cancelReturn
+      summary: Cancel before inspection and release reserved units
+      description: Cancel before inspection and release reserved units
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transition'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReasonInput'
+  /refunds:
+    post:
+      operationId: createRefund
+      summary: Create one logical mock refund
+      description: FINANCE only; ACCEPTED return required. simulationOutcome explicitly
+        selects a fake provider response. No network payment is performed. Replay
+        returns original result even if later reconciliation changed current state;
+        read workbench for current state.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: &id001
+                $ref: '#/components/schemas/Refund'
+        '200':
+          description: Exact idempotent replay; IDs and original response are preserved.
+          content:
+            application/json:
+              schema: *id001
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9._:-]{8,100}$
+        description: Scoped to operation, payload, actor. In-memory demonstrator session
+          only; exact replay is 200.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundInput'
+  /refunds/{id}/retry:
+    post:
+      operationId: retryRefund
+      summary: Retry only a definitively failed logical refund
+      description: Retry only a definitively failed logical refund
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: &id002
+                $ref: '#/components/schemas/Refund'
+        '200':
+          description: Exact idempotent replay; IDs and original response are preserved.
+          content:
+            application/json:
+              schema: *id002
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          pattern: ^[A-Za-z0-9._:-]{8,100}$
+        description: Scoped to operation, payload, actor. In-memory demonstrator session
+          only; exact replay is 200.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RetryInput'
+  /payment-events:
+    post:
+      operationId: applyPaymentEvent
+      summary: Apply a synthetic provider reconciliation event
+      description: PROVIDER fixture only. Reference must match attempt. Terminal events
+        are ignored; repeated event ID is acknowledged if payload matches. No production
+        signature or authentication exists.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResult'
+        '400':
+          description: Invalid input / missing or conflicting field
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unknown or missing synthetic actor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Role or ownership not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Reservation, state, idempotency, or event conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '413':
+          description: Body exceeds 64 KB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '415':
+          description: JSON Content-Type required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Eligibility or order-line mismatch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Unexpected local error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Reference demonstrator
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventInput'
+components:
+  securitySchemes:
+    DemoActor:
+      type: apiKey
+      in: header
+      name: X-Demo-Actor
+      description: 'Synthetic fixture only: agent-1, agent-2, manager-1, store-1,
+        finance-1, provider-1. Not real authentication.'
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - message
+    ReturnInput:
+      type: object
+      additionalProperties: false
+      properties:
+        orderId:
+          type: string
+          minLength: 1
+          maxLength: 200
+        items:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/ReturnItem'
+        storeId:
+          type: string
+          enum:
+          - S01
+          - S02
+          - S03
+        reasonCode:
+          type: string
+          enum:
+          - NOT_SUITABLE
+          - DAMAGED
+          - WRONG_ITEM
+      required:
+      - orderId
+      - items
+      - storeId
+      - reasonCode
+    ReturnItem:
+      type: object
+      additionalProperties: false
+      properties:
+        orderLineId:
+          type: string
+          minLength: 1
+          maxLength: 200
+        quantity:
+          type: integer
+          minimum: 1
+      required:
+      - orderLineId
+      - quantity
+    Preview:
+      type: object
+      additionalProperties: false
+      properties:
+        amountVnd:
+          type: integer
+          minimum: 0
+        currency:
+          type: string
+          enum:
+          - VND
+        approvalRequired:
+          type: boolean
+        policyVersion:
+          type: string
+        unitIds:
+          type: array
+          items:
+            type: string
+      required:
+      - amountVnd
+      - currency
+      - approvalRequired
+      - policyVersion
+      - unitIds
+    ReturnCreated:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - AWAITING_APPROVAL
+        amountVnd:
+          type: integer
+          minimum: 0
+        currency:
+          type: string
+          enum:
+          - VND
+      required:
+      - id
+      - status
+      - amountVnd
+      - currency
+    Transition:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - REJECTED
+          - CANCELLED
+          - ACCEPTED
+          - DISPUTED
+      required:
+      - id
+      - status
+    ApprovalInput:
+      type: object
+      additionalProperties: false
+      properties:
+        approved:
+          type: boolean
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - approved
+      - reason
+    InspectionInput:
+      type: object
+      additionalProperties: false
+      properties:
+        passed:
+          type: boolean
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - passed
+      - reason
+    ReasonInput:
+      type: object
+      additionalProperties: false
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 200
+      required:
+      - reason
+    RefundInput:
+      type: object
+      additionalProperties: false
+      properties:
+        returnId:
+          type: string
+          minLength: 1
+          maxLength: 200
+        simulationOutcome:
+          type: string
+          enum:
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          - PENDING
+      required:
+      - returnId
+      - simulationOutcome
+    RetryInput:
+      type: object
+      additionalProperties: false
+      properties:
+        simulationOutcome:
+          type: string
+          enum:
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          - PENDING
+      required:
+      - simulationOutcome
+    Refund:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        returnId:
+          type: string
+        amountVnd:
+          type: integer
+          minimum: 0
+        currency:
+          type: string
+          enum:
+          - VND
+        status:
+          type: string
+          enum:
+          - SUCCEEDED
+          - FAILED
+          - UNKNOWN
+          - PENDING
+        attemptId:
+          type: string
+        providerRef:
+          type: string
+        replayed:
+          type: boolean
+      required:
+      - id
+      - returnId
+      - amountVnd
+      - currency
+      - status
+      - attemptId
+      - providerRef
+      - replayed
+    EventInput:
+      type: object
+      additionalProperties: false
+      properties:
+        eventId:
+          type: string
+          minLength: 1
+          maxLength: 200
+        attemptId:
+          type: string
+          minLength: 1
+          maxLength: 200
+        providerRef:
+          type: string
+          minLength: 1
+          maxLength: 200
+        status:
+          type: string
+          enum:
+          - SUCCEEDED
+          - FAILED
+      required:
+      - eventId
+      - attemptId
+      - providerRef
+      - status
+    EventResult:
+      type: object
+      additionalProperties: false
+      properties:
+        eventId:
+          type: string
+        disposition:
+          type: string
+          enum:
+          - APPLIED
+          - IGNORED_TERMINAL
+        replayed:
+          type: boolean
+      required:
+      - eventId
+      - disposition
+      - replayed
+    OrderLine:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        order_id:
+          type: string
+        product_name:
+          type: string
+        category:
+          type: string
+        purchased_qty:
+          type: integer
+        gross_vnd:
+          type: integer
+        discount_vnd:
+          type: integer
+        net_paid_vnd:
+          type: integer
+        remaining_qty:
+          type: integer
+      required:
+      - id
+      - order_id
+      - product_name
+      - category
+      - purchased_qty
+      - gross_vnd
+      - discount_vnd
+      - net_paid_vnd
+      - remaining_qty
+    Order:
+      type: object
+      additionalProperties: false
+      properties:
+        id: &id003
+          type: string
+        delivered_at: &id004
+          type: string
+          format: date-time
+        currency: &id005
+          type: string
+          enum:
+          - VND
+        status: &id006
+          type: string
+          enum:
+          - PAID
+      required:
+      - id
+      - delivered_at
+      - currency
+      - status
+    OrderDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        id: *id003
+        delivered_at: *id004
+        currency: *id005
+        status: *id006
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLine'
+      required:
+      - id
+      - delivered_at
+      - currency
+      - status
+      - lines
+    ReturnRecord:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        order_id:
+          type: string
+        store_id:
+          type: string
+        reason_code:
+          type: string
+        requester_id:
+          type: string
+        status:
+          type: string
+          enum:
+          - AWAITING_APPROVAL
+          - APPROVED
+          - REJECTED
+          - CANCELLED
+          - DISPUTED
+          - ACCEPTED
+          - COMPLETED
+        amount_vnd:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - order_id
+      - store_id
+      - reason_code
+      - requester_id
+      - status
+      - amount_vnd
+      - created_at
+      - updated_at
+    RefundRecord:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        return_id:
+          type: string
+        amount_vnd:
+          type: integer
+        status:
+          type: string
+          enum:
+          - PENDING
+          - UNKNOWN
+          - FAILED
+          - SUCCEEDED
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        attempt_id:
+          type: string
+        provider_ref:
+          type: string
+        attempt_no:
+          type: integer
+      required:
+      - id
+      - return_id
+      - amount_vnd
+      - status
+      - created_at
+      - updated_at
+      - attempt_id
+      - provider_ref
+      - attempt_no
+    AuditEvent:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        entity_id:
+          type: string
+        actor_id:
+          type: string
+        action:
+          type: string
+        before_status:
+          type:
+          - string
+          - 'null'
+        after_status:
+          type:
+          - string
+          - 'null'
+        detail:
+          type: object
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - entity_id
+      - actor_id
+      - action
+      - before_status
+      - after_status
+      - detail
+      - created_at
+    Workbench:
+      type: object
+      additionalProperties: false
+      properties:
+        returns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReturnRecord'
+        refunds:
+          type: array
+          items:
+            $ref: '#/components/schemas/RefundRecord'
+        audit:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditEvent'
+      required:
+      - returns
+      - refunds
+      - audit
+    Health:
+      type: object
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          enum:
+          - ok
+        context:
+          type: string
+          enum:
+          - synthetic-local-demo
+        now:
+          type: string
+          format: date-time
+        policy:
+          type: object
+          additionalProperties: false
+          properties:
+            version:
+              type: string
+            windowDays:
+              type: integer
+            approvalThresholdVnd:
+              type: integer
+            currency:
+              type: string
+              enum:
+              - VND
+          required:
+          - version
+          - windowDays
+          - approvalThresholdVnd
+          - currency
+      required:
+      - status
+      - context
+      - now
+      - policy

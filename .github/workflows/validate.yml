@@ -1,0 +1,41 @@
+name: Validate portfolio
+
+on:
+  push:
+    branches: [main, feat/portfolio-v1]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - name: Install pinned tools
+        run: |
+          npm install --global pnpm@11.25.0
+          pnpm install --frozen-lockfile
+          python -m pip install -r requirements-validation.txt
+      - name: Run business acceptance and repository checks
+        run: pnpm test
+      - name: Validate OpenAPI and actual response schemas
+        run: python tools/validate_contract.py
+      - name: Check reproducible Graphviz export
+        run: pnpm diagrams
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: reference-validation-results
+          path: evidence/*.json
+          retention-days: 30

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RetailFlow · Operations workbench</title>
+    <link rel="stylesheet" href="/prototype/styles.css" />
+    <script src="/prototype/app.js" defer></script>
+  </head>
+  <body>
+    <aside>
+      <a class="brand" href="/"
+        >rf<span>RetailFlow<small>RETURNS OPERATIONS</small></span></a
+      >
+      <p class="aside-label">WORKSPACE</p>
+      <nav>
+        <button class="nav active" data-view="intake">New return</button
+        ><button class="nav" data-view="queue">Operations queue</button
+        ><button class="nav" data-view="audit">Audit trail</button
+        ><a class="nav" href="/prototype/process.html">Process models</a>
+      </nav>
+      <div class="aside-bottom">
+        <strong>Case study / v1.0</strong>
+        <p>One online channel<br />Three stores · VND</p>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header>
+        <div>
+          Operations <span>/</span> <strong id="breadcrumb">New return</strong>
+        </div>
+        <label
+          >Acting role<select id="actor">
+            <option value="agent-1">Customer service · agent-1</option>
+            <option value="agent-2">Customer service · agent-2</option>
+            <option value="manager-1">Manager · manager-1</option>
+            <option value="store-1">Store associate · store-1</option>
+            <option value="finance-1">Finance · finance-1</option>
+          </select></label
+        >
+      </header>
+      <main>
+        <div class="demo-note">
+          <strong>Synthetic demonstrator.</strong> Role selection is a test
+          fixture, not authentication. No real payments or customer data. Clock:
+          23 Nov 2026, 16:00 UTC+7. Restarting the server resets the data.
+        </div>
+        <div id="message" role="status" aria-live="polite"></div>
+        <section id="intake" class="view">
+          <div class="heading">
+            <div>
+              <p class="eyebrow">RETURN INTAKE / SCR-01</p>
+              <h1>A clear start for every return.</h1>
+              <p>
+                Find the original purchase, check availability, then preview the
+                refund.
+              </p>
+            </div>
+            <span class="pill">Policy 0.1 · case-study baseline</span>
+          </div>
+          <div class="intake-grid">
+            <article class="card">
+              <div class="section-title">
+                <span class="step">1</span>
+                <h2>Original purchase</h2>
+              </div>
+              <form id="lookup-form">
+                <label for="order-id">Order reference</label>
+                <div class="inline">
+                  <input
+                    id="order-id"
+                    value="O-100"
+                    required
+                    maxlength="200"
+                  /><button type="submit">Find order</button>
+                </div>
+              </form>
+              <p class="hint">
+                Try O-100 (partial return), O-200 (approval), O-OLD (expired),
+                O-EDGE (rounding).
+              </p>
+              <div id="order-detail" class="order-detail">
+                <p class="empty">Search for an order to see its items.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="section-title">
+                <span class="step">2</span>
+                <h2>Return details</h2>
+              </div>
+              <form id="return-form">
+                <label for="line-id">Order line</label
+                ><select id="line-id" required>
+                  <option value="">Find an order first</option>
+                </select>
+                <div class="form-grid">
+                  <div>
+                    <label for="quantity">Quantity</label
+                    ><input
+                      id="quantity"
+                      type="number"
+                      min="1"
+                      step="1"
+                      value="1"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label for="store">Receiving store</label
+                    ><select id="store">
+                      <option>S01</option>
+                      <option>S02</option>
+                      <option>S03</option>
+                    </select>
+                  </div>
+                </div>
+                <label for="reason">Reason</label
+                ><select id="reason">
+                  <option value="NOT_SUITABLE">Not suitable</option>
+                  <option value="DAMAGED">Damaged · manager approval</option>
+                  <option value="WRONG_ITEM">Wrong item</option></select
+                ><button type="submit" class="wide">
+                  Preview eligibility & refund
+                </button>
+              </form>
+              <p class="hint">
+                A preview reserves no stock and initiates no payout. All values
+                are recalculated on submission.
+              </p>
+            </article>
+          </div>
+          <article class="card preview-card" id="preview-card" hidden>
+            <div>
+              <p class="eyebrow">REFUND PREVIEW / SCR-02</p>
+              <h2 id="preview-amount">—</h2>
+              <p id="preview-detail"></p>
+            </div>
+            <div>
+              <button id="submit-return">Create return request</button>
+              <p class="hint">Confirmation reserves the selected units.</p>
+            </div>
+          </article>
+        </section>
+        <section id="queue" class="view" hidden>
+          <div class="heading">
+            <div>
+              <p class="eyebrow">HANDOFFS / SCR-03 & SCR-04</p>
+              <h1>One queue. Clear responsibility.</h1>
+              <p>
+                Switch the acting role to inspect authorization and the next
+                permitted action.
+              </p>
+            </div>
+            <button id="refresh" class="secondary">Refresh queue</button>
+          </div>
+          <div class="metrics" id="metrics"></div>
+          <article class="card">
+            <h2>Return requests</h2>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Reference / order</th>
+                    <th>Status</th>
+                    <th>Refund value</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="returns-body"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="card">
+            <h2>Payment reconciliation</h2>
+            <p class="hint">
+              UNKNOWN and PENDING cannot be retried. Confirm an outcome on the
+              existing attempt first.
+            </p>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Logical refund</th>
+                    <th>Outcome</th>
+                    <th>Amount</th>
+                    <th>Controlled action</th>
+                  </tr>
+                </thead>
+                <tbody id="refunds-body"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+        <section id="audit" class="view" hidden>
+          <div class="heading">
+            <div>
+              <p class="eyebrow">TRACEABILITY / SCR-05</p>
+              <h1>Every decision leaves a record.</h1>
+              <p>
+                Actor, timestamp, transition, and reason from the local
+                reference model.
+              </p>
+            </div>
+          </div>
+          <article class="card">
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Actor</th>
+                    <th>Transition</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-body"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+        <section class="api-evidence">
+          <details>
+            <summary>Inspect the last API response</summary>
+            <pre id="api-response">No request yet.</pre>
+          </details>
+        </section>
+      </main>
+      <footer>
+        RetailFlow · Independent business analysis case study · Anh Kho
+      </footer>
+    </div>
+    <dialog id="action-dialog">
+      <form id="action-form">
+        <p class="eyebrow">CONTROLLED ACTION</p>
+        <h2 id="action-title"></h2>
+        <p id="action-help"></p>
+        <label for="action-reason">Decision / inspection reason</label
+        ><input
+          id="action-reason"
+          maxlength="200"
+          value="Synthetic case checked against policy 0.1"
+        />
+        <div id="outcome-control">
+          <label for="outcome">Mock payment outcome</label
+          ><select id="outcome">
+            <option>SUCCEEDED</option>
+            <option>UNKNOWN</option>
+            <option>FAILED</option>
+            <option>PENDING</option>
+          </select>
+        </div>
+        <div class="button-row">
+          <button type="button" id="dismiss" class="secondary">Cancel</button
+          ><button type="submit">Confirm action</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>

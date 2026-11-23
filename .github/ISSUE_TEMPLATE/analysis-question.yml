@@ -1,0 +1,23 @@
+name: Analysis question
+description: Clarify a rule, requirement, process or assumption.
+title: "[Analysis] "
+body:
+  - type: input
+    id: artifact
+    attributes:
+      label: Related artifact or requirement ID
+      placeholder: FR-008, BR-009, or a document path
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question and business consequence
+      description: Explain the ambiguity, a concrete scenario, and what decision it affects.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and proposed resolution
+      description: Distinguish observed facts, synthetic examples and assumptions. Do not include customer data or credentials.

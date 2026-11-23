@@ -2,273 +2,122 @@
 
 ### Omnichannel Returns & Refunds · IT Business Analyst Portfolio
 
-A personal business analysis case study exploring how a retail chain could manage product returns and refunds across online and physical stores.
+[![Validate portfolio](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/actions/workflows/validate.yml/badge.svg)](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/actions/workflows/validate.yml)
 
-**Owner:** [Anh Kho](https://github.com/KhoaLe-net17) (`KhoaLe-net17`) · Third-year Information Technology student at the University of Economics Ho Chi Minh City (UEH)
+An independent business analysis case study connecting objectives to process models, requirements, interface behavior, data, API contracts and executable acceptance evidence.
 
-**Role:** IT Business Analyst · **Domain:** Retail operations · **Status:** Discovery — project brief drafted
+**Owner:** [Anh Kho](https://github.com/KhoaLe-net17) · Third-year IT student at UEH
+**Scope:** one online channel · three stores · one market · VND · synthetic data
+**Baseline:** portfolio v1.0 / case-study policy 0.1
 
-[Repository](https://github.com/KhoaLe-net17/retailflow-ba-portfolio) · [Questions and feedback](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/issues)
+[Case study](portfolio/case-study.md) · [Artifact index](docs/README.md) · [Validation](docs/06-uat-and-traceability/validation-report.md) · [Demo script](portfolio/demo-script.md) · [Releases](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/releases)
 
-> **Project context:** RetailFlow is an independent business analysis case study based on a fictional retailer. Business conditions, policies, and data are proposed assumptions until validated. This repository does not represent a client engagement, a production deployment, or measured business results.
+> **Evidence boundary:** fictional case study with a runnable local reference model. No client engagement, stakeholder interviews, business sign-off, live payments, production deployment or measured business improvement is claimed. Automated acceptance checks are not business-user UAT.
 
-## Contents
+## Business case
 
-- [Project overview](#project-overview)
-- [Business problem and objectives](#business-problem-and-objectives)
-- [Scope](#scope)
-- [Stakeholders and responsibilities](#stakeholders-and-responsibilities)
-- [Proposed workflow](#proposed-workflow)
-- [Business rules and edge cases](#business-rules-and-edge-cases)
-- [Worked analysis example](#worked-analysis-example)
-- [Analysis deliverables](#analysis-deliverables)
-- [Data and integration design](#data-and-integration-design)
-- [Repository structure](#repository-structure)
-- [Tools and working approach](#tools-and-working-approach)
-- [Quality and completion criteria](#quality-and-completion-criteria)
-- [Current progress](#current-progress)
-- [Author and project integrity](#author-and-project-integrity)
+The assumed retailer tracks returns in separate email and spreadsheet records. Teams may struggle to explain progress, apply eligibility consistently, and reconcile partial or uncertain refunds. These are scenario assumptions, not findings from an actual retailer.
 
-## Project overview
-
-RetailFlow follows the business analysis lifecycle from understanding an operational problem to specifying a solution and planning its acceptance testing.
-
-The scenario involves a fictional retailer operating one online sales channel and three physical stores. Customers may request a return for an online purchase at a store. Customer service, store staff, warehouse staff, managers, and finance need a shared view of each request.
-
-The portfolio will demonstrate how business needs connect to process models, business rules, requirements, interface designs, data models, integration specifications, and acceptance tests.
-
-## Business problem and objectives
-
-### Assumed current situation
-
-Return requests are tracked through email and spreadsheets. Staff manually check purchase information, return eligibility, approval status, and payment outcomes. This creates opportunities for inconsistent decisions, duplicate handling, and difficult reconciliation.
-
-These are scenario assumptions, not findings from an actual retailer. They will guide discovery questions rather than substitute for stakeholder evidence.
-
-| Proposed objective | Candidate measure | How it would be evaluated |
+| Objective | Analysis response | Evidence path |
 | --- | --- | --- |
-| Make processing status visible across teams | Time from request submission to final resolution | Compare timestamped cases using an agreed baseline and reporting period |
-| Apply return policies consistently | Proportion of reviewed cases that follow the approved policy | Review representative eligible, ineligible, and exception cases |
-| Prevent duplicate or excessive refunds | Duplicate successful payouts and refunded amount per order line | Reconcile requests, refundable balances, and payment references |
-| Improve operational traceability | Coverage of required events in the audit trail | Check that required events capture actor, time, action, and outcome |
+| OBJ-01 · Shared operational visibility | Separate return/payment states, queue and audit history | FR-011/012; UAT-33/34 |
+| OBJ-02 · Consistent policy decisions | Eligibility, independent approvals, inspection, atomic reservations | FR-002–005/010/013; boundary/negative cases |
+| OBJ-03 · Traceable payment control | Original paid-unit allocations, idempotency, uncertain-outcome reconciliation | FR-006–009/014; UAT-18–29/37 |
 
-**Baseline and numeric targets:** not established. Any later simulation results will be labeled as simulation results and will not be presented as production impact.
+Business baselines and improvement targets are not measured here. The [evaluation plan](docs/07-change-and-evaluation/evaluation-plan.md) defines what a real pilot would need.
 
-## Scope
+## Review in five minutes
 
-### Initial release
+1. Read the [case study](portfolio/case-study.md) and [business rules](docs/03-requirements/business-rules.md).
+2. Inspect the [current/future processes](docs/02-process-analysis/process-analysis.md) and [separate state models](docs/04-solution-design/state-models.md).
+3. Follow a requirement through the [traceability matrix](docs/06-uat-and-traceability/traceability-matrix.csv) to its acceptance case and actual result.
+4. Run the demo or inspect the [OpenAPI contract](api/openapi.yaml), [SQL](sql/02-analysis.sql) and [machine evidence](evidence/validation-results.json).
 
-| Capability | Included behavior |
+## Delivered artifacts
+
+| Area | Deliverables |
 | --- | --- |
-| Order lookup | Find a purchase and inspect order lines and previous returns |
-| Return submission | Select items, quantities, reasons, and a receiving location |
-| Eligibility assessment | Check proposed policy conditions and remaining returnable quantities |
-| Approval | Apply an agreed approval matrix and record decisions with reasons |
-| Goods inspection | Record received quantities, condition, and inventory disposition |
-| Refund calculation | Calculate refunds from the original paid amount and approved allocation rules |
-| Refund tracking | Model payment submission, uncertain outcomes, and final confirmation |
-| Operational reporting | Identify unresolved cases and refunds requiring reconciliation |
-| Access and audit | Specify permissions and record important business actions |
+| Discovery | [Initial brief](docs/01-discovery/project-brief.md), [stakeholder/RACI and elicitation guide](docs/01-discovery/stakeholders-and-elicitation.md), [evidence/assumptions](docs/01-discovery/evidence-and-assumptions.md) |
+| Process | Three editable BPMN 2.0 models and SVG exports; context diagram, gap analysis and glossary |
+| Requirements | [14 functional requirements and measurable quality requirements](docs/03-requirements/requirements-catalog.md), [12 rules](docs/03-requirements/business-rules.md), [12 stories with acceptance criteria](docs/03-requirements/user-stories.md), [two use cases](docs/03-requirements/use-cases.md) |
+| Solution | Five-screen HTML prototype, [screen/role specification](docs/04-solution-design/screen-specification.md), return/refund states |
+| Data/integration | [ERD/dictionary](docs/05-data-and-integration/data-dictionary.md), 11 PostgreSQL tables, synthetic seed, six analyses, OpenAPI 3.1.1 and seven-step Postman collection |
+| Validation | [37 acceptance scenarios](docs/06-uat-and-traceability/uat-scenarios.md), assertions, RTM, actual SQL/HTTP/schema evidence, defect/retest records and CI |
+| Change/evaluation | [Decisions](docs/07-change-and-evaluation/decision-log.md), [simulated exchange change request](docs/07-change-and-evaluation/change-request.md), evaluation and limitations |
+| Portfolio | Case study, demo script, [CV project entry](portfolio/cv-summary.md), changelog and contribution templates |
 
-### Boundaries
+## Key workflow
 
-- One market and one currency: VND.
-- Online orders returned at a physical store form the primary analysis scenario.
-- Synthetic orders, products, users, and payment responses only.
-- External order, inventory, and payment systems are represented by proposed contracts or mocks.
-- A working application is an optional later extension; the initial focus is analysis quality.
+![Proposed return handling rendered from BPMN with bpmn-js](diagrams/to-be-returns.svg)
 
-### Outside the initial release
+[Full-size model](diagrams/to-be-returns.svg) · [BPMN source](diagrams/to-be-returns.bpmn) · [Payment model](diagrams/to-be-payments.svg) · [ERD](diagrams/erd.svg)
 
-- Product exchanges, warranty claims, and repair management.
-- Cross-border returns, multi-currency settlement, and tax-engine integration.
-- Live payment processing and production ERP integration.
-- Automated fraud scoring and a complete e-commerce storefront.
+Look up the paid order and preview selected units; recheck and reserve atomically; obtain independent approval where required; inspect goods; finance creates an idempotent logical refund. Confirmed payment success completes the return. Unknown/pending outcomes require reconciliation on the existing attempt. Discrepancies hold the return and block payment.
 
-## Stakeholders and responsibilities
+The primary example is two items at 300000 VND each with a 100000 VND original discount: one eligible unit refunds **250000 VND**. Immutable integer allocations also conserve non-divisible totals across partial returns.
 
-These are fictional stakeholder roles used for analysis, not actual project participants.
+## Run the local demo
 
-| Stakeholder | Main concern | Input or decision needed |
-| --- | --- | --- |
-| Customer | Clear eligibility, expected refund, and status | Expectations and usability feedback |
-| Customer service agent | Accurate information and fewer handoffs | Intake needs, common questions, and exceptions |
-| Store associate | Correct receipt and inspection of returned goods | Store handling steps and inspection evidence |
-| Store manager | Consistent approval decisions | Approval rules, escalation, and exceptions |
-| Warehouse or inventory staff | Correct stock disposition | Restock, quarantine, or other agreed treatment |
-| Finance team | Accurate payouts and reconciliation | Refund calculation and payment outcome handling |
-| Product owner or business sponsor | Business value and delivery priorities | Scope, priorities, and acceptance decisions |
-| Developer and QA roles | Clear, implementable, testable requirements | Technical feedback and test coverage review |
+Prerequisites: **Node.js 22+** and **pnpm 11.25.0**. Local validation and CI use Node 24. Install pnpm if needed: `npm install --global pnpm@11.25.0`.
 
-The portfolio owner performs the analysis. Any role-play, simulated interview, or self-review will be identified as such; it will not be recorded as stakeholder approval.
-
-## Proposed workflow
-
-The high-level workflow is split into return handling and refund processing. A detailed BPMN model with responsibilities, handoffs, and exceptions is a planned deliverable.
-
-### Return handling
-
-![Return handling: assess eligibility, obtain approval when required, inspect goods, and confirm the refund amount.](diagrams/return-handling.svg)
-
-[View full-size diagram](diagrams/return-handling.svg) · [Diagram source](diagrams/return-handling.dot)
-
-### Refund processing
-
-![Refund processing: submit the refund, then handle confirmed success, confirmed failure, or an unknown or pending payment outcome.](diagrams/refund-processing.svg)
-
-[View full-size diagram](diagrams/refund-processing.svg) · [Diagram source](diagrams/refund-processing.dot)
-
-Return handling and payment handling will have separate state models. Receiving an item or approving a return does not by itself mean that a refund has succeeded.
-
-## Business rules and edge cases
-
-The following are proposed analysis topics. Exact policies must be resolved and versioned before requirements are baselined.
-
-| ID | Rule or decision to specify | Important edge case |
-| --- | --- | --- |
-| BR-001 | Define the return window, its starting event, timezone, and boundary | Request submitted exactly at the cutoff |
-| BR-002 | Return quantity must not exceed the remaining eligible quantity | Previous completed returns and concurrent open requests |
-| BR-003 | Use an agreed allocation of original discounts and paid amounts | Partial return from an order with an order-level discount |
-| BR-004 | Cumulative successful refunds must not exceed the eligible paid balance | Several partial refunds for the same order line |
-| BR-005 | Define which cases require additional approval and by whom | Requester attempts to approve their own exception |
-| BR-006 | Prevent duplicate payout instructions for the same logical refund | Timeout, repeated submission, or duplicate callback |
-| BR-007 | Inventory treatment must follow the inspection outcome | Damaged goods must not be automatically marked sellable |
-| BR-008 | Important decisions and state changes must be traceable | Rejection reason, approval actor, and payment reconciliation |
-
-Open policy questions include shipping-fee refunds, excluded product categories, lost receipts, approval thresholds, reservation of quantities during open requests, and handling of failed inspections.
-
-## Worked analysis example
-
-**Scenario:** an order contains two identical items priced at VND 300,000 each. An order-level discount of VND 100,000 is applied. There are no other charges in this example. The customer returns one eligible item.
-
-**Example policy assumption:** distribute the discount equally because the two items have equal prices. The allocated discount is VND 50,000 per item, so the refund for one item is **VND 250,000**. Unequal prices, rounding, tax, and shipping need separate rules.
-
-**User story — US-001**
-
-> As a customer service agent, I want to see the calculated refund for the selected return items so that I can explain the expected amount to the customer.
-
-**Acceptance criteria — illustrative draft**
-
-```gherkin
-Scenario: Preview a refund for one eligible item
-  Given a paid order contains two identical items priced at VND 300000 each
-  And the VND 100000 discount is allocated equally between the items
-  And there are no other charges or previous returns
-  When the agent selects one eligible item for return
-  Then the refund preview shows VND 250000
-  And the calculation shows the allocated discount of VND 50000
-  And no payout is initiated by viewing the preview
+```bash
+git clone https://github.com/KhoaLe-net17/retailflow-ba-portfolio.git
+cd retailflow-ba-portfolio
+pnpm install --frozen-lockfile
+pnpm start
 ```
 
-The intended traceability chain is:
+Open **http://127.0.0.1:4173**. As `agent-1`, find `O-100`, preview one `L-01` and create the return. Switch to `store-1` for inspection and `finance-1` for a mock refund. Use UNKNOWN to inspect reconciliation. Follow the [demo script](portfolio/demo-script.md).
 
-`Business objective → Requirement → Business rule → User story → Screen/API/data design → UAT scenario`
+The server binds to loopback. Actor selection is a role-test fixture, **not authentication**. Payments are simulated. Embedded PostgreSQL data is in memory and resets on restart. Business clock: **2026-11-23 16:00 UTC+7**, fixed for reproducible date boundaries.
 
-The example demonstrates the analysis approach. It is not evidence that the workflow or payment controls have been implemented or tested.
+The UI selects one line per request; API supports up to 20 distinct lines atomically. Import the [Postman collection](api/retailflow.postman_collection.json) for its seven-step walkthrough on a fresh server. Execution in Postman is not claimed by the HTTP evidence.
 
-## Analysis deliverables
+## Reproduce validation
 
-The [project brief](docs/01-discovery/project-brief.md) is available as a draft. Other artifacts below remain planned unless the progress section explicitly states otherwise. Paths are target locations and may not exist yet.
+```bash
+pnpm test
+python -m venv .venv
+```
 
-| Workstream | Planned artifacts | Target location |
-| --- | --- | --- |
-| Discovery | Project brief, problem statement, scope, stakeholder map, elicitation plan, evidence and assumption log | `docs/01-discovery/` |
-| Process analysis | As-is and To-be BPMN, gap analysis, context diagram, glossary | `docs/02-process-analysis/` |
-| Requirements | Business requirements, functional requirements, business rules, use cases, prioritized stories and acceptance criteria | `docs/03-requirements/` |
-| Solution design | Wireframes, screen specifications, role-permission matrix, return and refund state models | `docs/04-solution-design/` |
-| Data and integration | ERD, data dictionary, SQL examples, API contract, sequence diagrams, measurable non-functional requirements | `docs/05-data-and-integration/` |
-| Validation | UAT plan, scenarios, requirements traceability matrix, defect log, execution evidence | `docs/06-uat-and-traceability/` |
-| Change and evaluation | Change request, impact analysis, decision log, evaluation plan and retrospective | `docs/07-change-and-evaluation/` |
-| Portfolio presentation | Concise case study, artifact highlights, demo script, and CV project summary | `portfolio/` |
+Activate the environment: Windows PowerShell `.\.venv\Scripts\Activate.ps1`; macOS/Linux `source .venv/bin/activate`. Then:
 
-## Data and integration design
+```bash
+python -m pip install -r requirements-validation.txt
+python tools/validate_contract.py
+pnpm diagrams
+```
 
-The conceptual data model will explore orders, order lines, products, return requests, return lines, inspections, refund instructions, payment attempts, users, roles, and audit events.
+The test runner executes business assertions, actual HTTP requests, PostgreSQL queries, BPMN import and local documentation-link checks, writing timestamped evidence. Python validates OpenAPI and actual captured response schemas. CI repeats checks and uploads results without committing generated files.
 
-Planned SQL analyses will answer business questions such as:
+View BPMN at **http://127.0.0.1:4173/prototype/process.html** or import the sources into a compatible modeler. Download SVG uses bpmn-js. `node tools/build-bpmn.mjs` regenerates the supplied source layout; `pnpm diagrams` renders DOT through Graphviz/WASM. These are tool-rendered vector diagrams, not generated artwork.
 
-- Which return requests remain unresolved, and for how long?
-- How much returnable quantity remains after completed and reserved requests?
-- Which successful refunds exceed the permitted paid balance?
-- Which pending payment attempts require reconciliation?
-- Which decisions lack required approval or audit information?
-
-Planned integration specifications will cover order lookup, return submission, inspection results, refund initiation, and payment status updates. They will address validation, authorization, error responses, idempotency, and duplicate or out-of-order events.
-
-No API server, database, or runnable application is provided by this README. Setup instructions will be added when executable artifacts exist.
-
-## Repository structure
-
-Target structure as the project develops:
+## Repository map
 
 ```text
-retailflow-ba-portfolio/
-├── README.md
-├── docs/
-│   ├── 01-discovery/
-│   ├── 02-process-analysis/
-│   ├── 03-requirements/
-│   ├── 04-solution-design/
-│   ├── 05-data-and-integration/
-│   ├── 06-uat-and-traceability/
-│   └── 07-change-and-evaluation/
-├── diagrams/
-├── prototype/
-├── sql/
-├── api/
-├── portfolio/
-└── .github/
-    ├── ISSUE_TEMPLATE/
-    └── pull_request_template.md
+docs/        Discovery, process, requirements, design, data, validation, change
+analysis/    Machine-readable rule, requirement and acceptance catalog
+diagrams/    BPMN, DOT and exported SVG
+prototype/   HTML/CSS/JavaScript prototype and process viewer
+demo/        Local Node HTTP and PostgreSQL reference model
+sql/         Schema, synthetic seed and six analyses
+api/         OpenAPI and Postman collection
+evidence/    Actual validation outputs and browser observations
+portfolio/   Case study, demo script and CV entry
+tools/       Validation and diagram tooling
+.github/     Issue/PR templates and validation workflow
 ```
 
-## Tools and working approach
+## Scope and limits
 
-| Purpose | Proposed tool |
-| --- | --- |
-| Documentation and version history | Markdown and Git |
-| Backlog and milestones | GitHub Issues, Projects, and Milestones |
-| Process and data diagrams | diagrams.net; Mermaid for supported diagrams |
-| Wireframes and prototype | Figma |
-| Data modeling and queries | PostgreSQL and a SQL client |
-| API documentation and exploration | OpenAPI and Postman |
+The selected case-study slice is specified and implemented. Exchanges, warranties, cross-border/multi-currency returns, real customer data, physical inventory posting, dispute resolution, durable operations, production identity and live payments are outside it. Production load/security tests and stakeholder validation have not been performed. See [evaluation](docs/07-change-and-evaluation/evaluation-plan.md) and [integration gaps](docs/05-data-and-integration/integration-design.md).
 
-These tools are proposed, not a list of completed integrations. The project does not require paid subscriptions.
+## Standards and tools
 
-Work will be organized into small, reviewable issues. Requirements will receive stable IDs, changes will record their rationale and impact, and commits will describe actual changes. Document status will distinguish drafts, reviewed artifacts, and unresolved decisions.
+- [OMG BPMN 2.0.2](https://www.omg.org/spec/BPMN/2.0.2/) and [bpmn-js](https://bpmn.io/toolkit/bpmn-js/) for process modeling/rendering.
+- [Graphviz](https://graphviz.org/) via Viz.js for context and ERD exports.
+- [PostgreSQL via PGlite](https://pglite.dev/docs/) for embedded SQL execution.
+- [OpenAPI 3.1.1](https://spec.openapis.org/oas/v3.1.1.html) for the HTTP contract.
+- Markdown/Git/GitHub, HTML/CSS/JavaScript and Node.js for inspectable documents, interactions, review and checks.
 
-## Quality and completion criteria
-
-- Business needs, solution assumptions, and stakeholder evidence are distinguishable.
-- Requirements have clear actors, conditions, expected outcomes, and acceptance criteria.
-- Process diagrams include relevant decisions, responsibilities, and exception paths.
-- Screens, rules, data definitions, APIs, and state models agree with each other.
-- In-scope requirements are linked to UAT scenarios; untested scenarios remain labeled untested.
-- SQL examples include synthetic inputs and verifiable expected results.
-- Payment designs address duplicate requests, uncertain outcomes, and reconciliation.
-- Non-functional requirements specify a measure and a verification approach.
-- Changes identify affected rules, requirements, designs, and tests.
-- Portfolio claims match the artifacts and evidence available in the repository.
-
-## Current progress
-
-- [x] Select the project topic and define an initial scenario.
-- [x] Prepare the project overview and proposed analysis scope.
-- [x] Draft the [project brief](docs/01-discovery/project-brief.md) with three proposed objectives, scope boundaries, assumptions, and open discovery questions.
-- [ ] Complete discovery and resolve initial policy assumptions.
-- [ ] Model business processes and document requirements.
-- [ ] Design screens, data structures, and integration contracts.
-- [ ] Prepare and execute applicable validation exercises.
-- [ ] Analyze a change request and finalize the portfolio case study.
-
-Available artifacts include this project overview, two proposed workflow diagrams, and the draft project brief. Discovery questions remain open; no stakeholder validation, completed requirements, or executed tests are claimed. Further artifacts and actual validation results will be added as the work is completed.
-
-## Author and project integrity
-
-**[Anh Kho](https://github.com/KhoaLe-net17)** (`KhoaLe-net17`) — Third-year IT student at UEH, building practical business analysis skills and preparing for IT BA internship opportunities.
-
-Only synthetic data will be published. Real customer records, credentials, employer documents, and confidential information are outside this portfolio's scope.
-
-Feedback on business logic, requirement clarity, and test coverage is welcome through repository issues. Any later external contributions will be acknowledged.
-
-**License:** no license has been selected or granted by this README. A license file will be added if the owner chooses one.
+No Figma/Jira deployment, production database, bank integration or real-user UAT is implied. Original content currently has no granted license; dependencies retain their own licenses. See [contribution guidance](CONTRIBUTING.md) and [changelog](CHANGELOG.md).

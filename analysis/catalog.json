@@ -1,0 +1,496 @@
+{
+  "policyVersion": "0.1",
+  "requirements": [
+    {
+      "id": "FR-001",
+      "title": "Find original order and remaining units",
+      "acceptance": "Read order O-100; show L-01 with paid total 500000 VND and initially 2 available units.",
+      "rules": [
+        "BR-002"
+      ],
+      "uat": [
+        "UAT-01"
+      ],
+      "story": "US-01",
+      "objective": "OBJ-01"
+    },
+    {
+      "id": "FR-002",
+      "title": "Preview eligibility without mutation",
+      "acceptance": "Preview one unit of L-01 at 250000 VND; no return, reservation, refund or audit mutation occurs.",
+      "rules": [
+        "BR-001",
+        "BR-003",
+        "BR-011"
+      ],
+      "uat": [
+        "UAT-02",
+        "UAT-03",
+        "UAT-04",
+        "UAT-05",
+        "UAT-06"
+      ],
+      "story": "US-02",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-003",
+      "title": "Create and reserve a return atomically",
+      "acceptance": "Create selected units once, revalidate availability, and reject an over-reservation with no partial write.",
+      "rules": [
+        "BR-002",
+        "BR-011"
+      ],
+      "uat": [
+        "UAT-07",
+        "UAT-08",
+        "UAT-09",
+        "UAT-31"
+      ],
+      "story": "US-03",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-004",
+      "title": "Control manager decisions",
+      "acceptance": "Route high-value or damaged returns for manager review; reject unauthorized or self decisions and require a reason.",
+      "rules": [
+        "BR-005",
+        "BR-008"
+      ],
+      "uat": [
+        "UAT-10",
+        "UAT-11",
+        "UAT-12",
+        "UAT-13",
+        "UAT-14"
+      ],
+      "story": "US-04",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-005",
+      "title": "Record inspection and discrepancy",
+      "acceptance": "Only approved returns can be inspected by STORE; failure blocks refund while preserving reservation.",
+      "rules": [
+        "BR-007",
+        "BR-008"
+      ],
+      "uat": [
+        "UAT-15",
+        "UAT-16",
+        "UAT-17"
+      ],
+      "story": "US-05",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-006",
+      "title": "Calculate conserved refunds",
+      "acceptance": "Original unit allocations sum to original net paid including remainders; preview never accepts a client amount.",
+      "rules": [
+        "BR-003",
+        "BR-004"
+      ],
+      "uat": [
+        "UAT-18",
+        "UAT-19"
+      ],
+      "story": "US-02",
+      "objective": "OBJ-03"
+    },
+    {
+      "id": "FR-007",
+      "title": "Initiate an idempotent mock payment",
+      "acceptance": "FINANCE can pay an ACCEPTED return; exact replay creates no second instruction or attempt; conflicting key is rejected.",
+      "rules": [
+        "BR-004",
+        "BR-006",
+        "BR-009"
+      ],
+      "uat": [
+        "UAT-20",
+        "UAT-21",
+        "UAT-22",
+        "UAT-23"
+      ],
+      "story": "US-06",
+      "objective": "OBJ-03"
+    },
+    {
+      "id": "FR-008",
+      "title": "Reconcile uncertain payment outcomes",
+      "acceptance": "Unknown remains open; an attempt-matched provider success completes the return; repeated or stale events do not regress state.",
+      "rules": [
+        "BR-009",
+        "BR-010"
+      ],
+      "uat": [
+        "UAT-24",
+        "UAT-25",
+        "UAT-26",
+        "UAT-27"
+      ],
+      "story": "US-07",
+      "objective": "OBJ-03"
+    },
+    {
+      "id": "FR-009",
+      "title": "Retry only confirmed failures",
+      "acceptance": "Retry FAILED as attempt 2 with the same logical refund and amount; block UNKNOWN and PENDING retries.",
+      "rules": [
+        "BR-009"
+      ],
+      "uat": [
+        "UAT-28",
+        "UAT-29"
+      ],
+      "story": "US-08",
+      "objective": "OBJ-03"
+    },
+    {
+      "id": "FR-010",
+      "title": "Cancel and release before inspection",
+      "acceptance": "Requester or manager can cancel eligible pre-inspection requests and release their units; reject unrelated agents and post-inspection cancellation.",
+      "rules": [
+        "BR-012"
+      ],
+      "uat": [
+        "UAT-30",
+        "UAT-32"
+      ],
+      "story": "US-09",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-011",
+      "title": "Display cross-team operational status",
+      "acceptance": "Workbench shows return/payment states, latest attempt and unresolved queue; role-specific actions are also checked by the server.",
+      "rules": [
+        "BR-007",
+        "BR-009"
+      ],
+      "uat": [
+        "UAT-33"
+      ],
+      "story": "US-10",
+      "objective": "OBJ-01"
+    },
+    {
+      "id": "FR-012",
+      "title": "Provide atomic audit history",
+      "acceptance": "Successful creation, approval, inspection, payout and reconciliation record the responsible actor, time and transition.",
+      "rules": [
+        "BR-008"
+      ],
+      "uat": [
+        "UAT-34"
+      ],
+      "story": "US-11",
+      "objective": "OBJ-01"
+    },
+    {
+      "id": "FR-013",
+      "title": "Validate HTTP input and demo actor",
+      "acceptance": "Reject missing/unknown demo actor, malformed JSON, unsupported content type and unknown fields with documented errors.",
+      "rules": [
+        "BR-011"
+      ],
+      "uat": [
+        "UAT-35",
+        "UAT-36"
+      ],
+      "story": "US-12",
+      "objective": "OBJ-02"
+    },
+    {
+      "id": "FR-014",
+      "title": "Expose reproducible reconciliation analyses",
+      "acceptance": "SQL reports remaining units, pending/unknown age, duplicate success, excess refund and allocation conservation with documented expected results.",
+      "rules": [
+        "BR-002",
+        "BR-004",
+        "BR-010"
+      ],
+      "uat": [
+        "UAT-37"
+      ],
+      "story": "US-10",
+      "objective": "OBJ-03"
+    }
+  ],
+  "rules": [
+    {
+      "id": "BR-001",
+      "rule": "A request is eligible from delivered_at through delivered_at + 30 x 24 hours, inclusive. Compare instants; display UTC+7. Future delivery and late requests are rejected."
+    },
+    {
+      "id": "BR-002",
+      "rule": "Allocate only unreserved, unreturned units. Reserve units atomically at request creation; keep them reserved through inspection, dispute, payment uncertainty, and completion."
+    },
+    {
+      "id": "BR-003",
+      "rule": "Use original line net paid after allocated discounts. Split net paid into integer VND units: floor(net/quantity), with the first remainder ordinals receiving one extra dong. Select lowest available ordinals. No shipping fee refund or new tax calculation."
+    },
+    {
+      "id": "BR-004",
+      "rule": "A refund equals the immutable paid values of its reserved units. At most one logical refund per return; each unit can contribute to only one live/completed return. Successful refunds cannot exceed original net paid."
+    },
+    {
+      "id": "BR-005",
+      "rule": "Manager approval is required for amount > 500000 VND or reason DAMAGED. Exactly 500000 does not trigger the amount rule. Requester cannot decide their own exception. Other eligible requests are auto-approved by the policy."
+    },
+    {
+      "id": "BR-006",
+      "rule": "Persist an idempotency key, actor and operation/payload fingerprint with the payment result in one transaction. Exact replay returns the same IDs and original response; different payload or actor with the same key returns conflict."
+    },
+    {
+      "id": "BR-007",
+      "rule": "Only store staff inspect an approved return. Passed inspection produces ACCEPTED and RESTOCK_CANDIDATE; discrepancy produces DISPUTED and QUARANTINE. No inventory movement is executed. Disputed cases cannot be paid."
+    },
+    {
+      "id": "BR-008",
+      "rule": "Each successful mutation records entity, actor, action, before/after states, reason or relevant details, and timestamp in the same transaction. Rejected commands do not change business data."
+    },
+    {
+      "id": "BR-009",
+      "rule": "Finance alone initiates or retries payments. PENDING/UNKNOWN require reconciliation on the existing attempt, never blind resubmission. A retry is allowed only after definitive FAILED, as another attempt of the same logical refund."
+    },
+    {
+      "id": "BR-010",
+      "rule": "Provider events must match attempt and provider reference. Deduplicate event IDs, reject reused IDs with changed content, and ignore subsequent events on terminal attempts without regressing the state. SUCCEEDED completes the return."
+    },
+    {
+      "id": "BR-011",
+      "rule": "All lines in a request must belong to one paid order. Duplicate line IDs, non-integer/non-positive quantities, unknown fields, and unknown reasons/stores are invalid. Consumables are excluded."
+    },
+    {
+      "id": "BR-012",
+      "rule": "Requester or manager can cancel only before inspection. Rejection or cancellation releases reservations; disputes and payment failures do not. Cancellation after inspection needs a separately analyzed future resolution process."
+    }
+  ],
+  "uat": [
+    {
+      "id": "UAT-01",
+      "title": "Order lookup",
+      "steps": "Read O-100 as agent-1.",
+      "expected": "L-01 has remaining_qty=2 and net_paid_vnd=500000."
+    },
+    {
+      "id": "UAT-02",
+      "title": "Pure preview",
+      "steps": "Preview 1 unit of L-01.",
+      "expected": "250000 VND; zero requests, reservations and payments."
+    },
+    {
+      "id": "UAT-03",
+      "title": "Expired return",
+      "steps": "Preview O-OLD/L-03.",
+      "expected": "422 RETURN_WINDOW; no mutation."
+    },
+    {
+      "id": "UAT-04",
+      "title": "Inclusive cutoff",
+      "steps": "Preview O-EDGE at exactly its 30-day cutoff, then at +1 millisecond.",
+      "expected": "Exact cutoff accepted; +1 ms rejected."
+    },
+    {
+      "id": "UAT-05",
+      "title": "Excluded category",
+      "steps": "Preview O-200/L-05.",
+      "expected": "422 CATEGORY_EXCLUDED."
+    },
+    {
+      "id": "UAT-06",
+      "title": "Future delivery",
+      "steps": "Preview O-FUTURE/L-06.",
+      "expected": "422 RETURN_WINDOW."
+    },
+    {
+      "id": "UAT-07",
+      "title": "Atomic reservation",
+      "steps": "Create L-01 quantity 1; inspect remaining quantity.",
+      "expected": "APPROVED; 250000 VND; remaining_qty=1."
+    },
+    {
+      "id": "UAT-08",
+      "title": "Over-return",
+      "steps": "Reserve both L-01 units; submit another one.",
+      "expected": "409 RETURN_QUANTITY_EXCEEDED; one return remains."
+    },
+    {
+      "id": "UAT-09",
+      "title": "Multi-line rollback",
+      "steps": "Submit O-200 with valid L-02 then excluded L-05.",
+      "expected": "Entire command rejected; U-03 still available."
+    },
+    {
+      "id": "UAT-10",
+      "title": "High-value approval",
+      "steps": "Create O-200/L-02.",
+      "expected": "AWAITING_APPROVAL; 900000 VND."
+    },
+    {
+      "id": "UAT-11",
+      "title": "Threshold boundary",
+      "steps": "Create two L-01 units for 500000 VND.",
+      "expected": "APPROVED without amount-triggered approval."
+    },
+    {
+      "id": "UAT-12",
+      "title": "Damaged exception",
+      "steps": "Create one L-01 with DAMAGED; manager approves with reason.",
+      "expected": "AWAITING_APPROVAL then APPROVED."
+    },
+    {
+      "id": "UAT-13",
+      "title": "Self decision",
+      "steps": "Manager creates DAMAGED request and attempts to approve it.",
+      "expected": "403 SELF_APPROVAL; remains awaiting approval."
+    },
+    {
+      "id": "UAT-14",
+      "title": "Unauthorized approval and release",
+      "steps": "AGENT tries approval; MANAGER rejects with reason.",
+      "expected": "Agent denied; rejection releases units."
+    },
+    {
+      "id": "UAT-15",
+      "title": "Accepted inspection",
+      "steps": "STORE accepts an APPROVED return.",
+      "expected": "ACCEPTED; audit disposition RESTOCK_CANDIDATE."
+    },
+    {
+      "id": "UAT-16",
+      "title": "Disputed goods",
+      "steps": "STORE fails inspection; FINANCE tries to pay.",
+      "expected": "DISPUTED; QUARANTINE; refund blocked; units held."
+    },
+    {
+      "id": "UAT-17",
+      "title": "Wrong inspection state or role",
+      "steps": "Inspect awaiting-approval request; inspect approved request as AGENT.",
+      "expected": "409 INVALID_STATE and 403 FORBIDDEN respectively."
+    },
+    {
+      "id": "UAT-18",
+      "title": "Rounding conservation",
+      "steps": "Allocate 100001 VND across 3 units; preview each available allocation.",
+      "expected": "33334 + 33334 + 33333 = 100001."
+    },
+    {
+      "id": "UAT-19",
+      "title": "Client amount injection",
+      "steps": "Add amountVnd to a preview body.",
+      "expected": "400 UNKNOWN_FIELD; no client-controlled amount."
+    },
+    {
+      "id": "UAT-20",
+      "title": "Successful refund",
+      "steps": "FINANCE pays an ACCEPTED return.",
+      "expected": "SUCCEEDED; return COMPLETED; one logical refund and attempt."
+    },
+    {
+      "id": "UAT-21",
+      "title": "Exact command replay",
+      "steps": "Submit identical refund command twice with same actor and key.",
+      "expected": "Same refund/attempt IDs; replayed=true; no new attempt."
+    },
+    {
+      "id": "UAT-22",
+      "title": "Conflicting key",
+      "steps": "Reuse key with changed payload or actor.",
+      "expected": "409 IDEMPOTENCY_CONFLICT."
+    },
+    {
+      "id": "UAT-23",
+      "title": "Guarded payment initiation",
+      "steps": "Attempt payout as AGENT, before inspection, with a missing key, and under a different key for an existing logical refund.",
+      "expected": "Each command is denied without another payment."
+    },
+    {
+      "id": "UAT-24",
+      "title": "Unknown reconciliation",
+      "steps": "Create UNKNOWN; confirm matching success with provider event.",
+      "expected": "UNKNOWN stays ACCEPTED until event; then SUCCEEDED and COMPLETED."
+    },
+    {
+      "id": "UAT-25",
+      "title": "Event replay and conflict",
+      "steps": "Replay same event, then reuse event ID with a changed outcome.",
+      "expected": "Replay acknowledged; changed event rejected with EVENT_CONFLICT."
+    },
+    {
+      "id": "UAT-26",
+      "title": "Stale terminal event",
+      "steps": "After success, send another failure event for the same attempt.",
+      "expected": "IGNORED_TERMINAL; success and completed return remain."
+    },
+    {
+      "id": "UAT-27",
+      "title": "Wrong provider reference",
+      "steps": "Send event with another provider reference.",
+      "expected": "409 PROVIDER_REFERENCE_MISMATCH; no state change."
+    },
+    {
+      "id": "UAT-28",
+      "title": "Definitive failure retry",
+      "steps": "Create FAILED then retry SUCCEEDED with new key.",
+      "expected": "Same refund ID/amount; attempt_no=2; one successful attempt."
+    },
+    {
+      "id": "UAT-29",
+      "title": "Uncertain retry blocked",
+      "steps": "Try retry on UNKNOWN and PENDING.",
+      "expected": "409 RETRY_BLOCKED; original attempt remains."
+    },
+    {
+      "id": "UAT-30",
+      "title": "Cancellation release",
+      "steps": "Requester cancels APPROVED return before inspection.",
+      "expected": "CANCELLED; reserved units available again."
+    },
+    {
+      "id": "UAT-31",
+      "title": "Concurrent reservation",
+      "steps": "Submit two concurrent commands each reserving both L-01 units.",
+      "expected": "Exactly one succeeds; other conflicts; no over-reservation."
+    },
+    {
+      "id": "UAT-32",
+      "title": "Cancellation authorization and state",
+      "steps": "Unrelated agent cancels; requester cancels after accepted inspection.",
+      "expected": "403 NOT_REQUESTER; 409 INVALID_STATE; reservation retained."
+    },
+    {
+      "id": "UAT-33",
+      "title": "Operational workbench",
+      "steps": "Read queue after creating return and UNKNOWN refund.",
+      "expected": "Returns, latest attempt, refund state and audit visible; provider cannot access workbench."
+    },
+    {
+      "id": "UAT-34",
+      "title": "Audit integrity",
+      "steps": "Complete creation, inspection and payment.",
+      "expected": "Audit has actor, time, entity, action, transitions; rejected operation adds no success event."
+    },
+    {
+      "id": "UAT-35",
+      "title": "HTTP malformed input",
+      "steps": "Send malformed JSON, text/plain, missing actor and unknown actor.",
+      "expected": "400,415,401,401 with code/message response."
+    },
+    {
+      "id": "UAT-36",
+      "title": "Invalid business input",
+      "steps": "Try 0/fraction quantity, duplicate line, different-order line, invalid store/reason and extra field.",
+      "expected": "Documented 400/422 errors; no mutation."
+    },
+    {
+      "id": "UAT-37",
+      "title": "SQL reconciliation",
+      "steps": "Run all six SQL analyses on clean seed and a successful partial return.",
+      "expected": "Remaining quantity changes 2 to 1; invariant violation queries return zero rows."
+    }
+  ]
+}
