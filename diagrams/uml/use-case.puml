@@ -1,0 +1,52 @@
+@startuml
+!pragma layout smetana
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #EDF5F0
+BorderColor #446D68
+}
+title RetailFlow - use-case view / selected case-study scope
+actor "Customer service" as Agent
+actor "Independent manager" as Manager
+actor "Store associate" as Store
+actor "Finance" as Finance
+actor "Provider event fixture\n(not a live integration)" as Provider
+rectangle "RetailFlow reference boundary" {
+  usecase "UC-01\nSubmit and complete a return" as UC1
+  usecase "Validate intake and\nreserve available units\nFR-002 / FR-003" as Validate
+  usecase "Decide an exception\nFR-004" as Approve
+  usecase "Cancel before inspection\nFR-010" as Cancel
+  usecase "UC-02\nResolve uncertain payment\nFR-008" as UC2
+  usecase "View operational status\nand audit\nFR-011 / FR-012" as Read
+}
+Agent -- UC1
+Store -- UC1 : inspect goods
+Finance -- UC1 : initiate refund
+Manager -- Approve
+Agent -- Cancel
+Manager -- Cancel
+Finance -- UC2
+Provider -- UC2 : matched event
+Agent -- Read
+Manager -- Read
+Store -- Read
+Finance -- Read
+UC1 ..> Validate : <<include>>
+Approve ..> UC1 : <<extend>>\n[high value or DAMAGED]
+Cancel ..> UC1 : <<extend>>\n[authorized / before inspection]
+UC2 ..> UC1 : <<extend>>\n[UNKNOWN or PENDING]
+note bottom of UC1
+  Customer requests are entered by staff.
+  No customer self-service actor is implemented.
+  Association does not grant every supporting
+  actor permission to perform every step.
+end note
+note bottom of UC2
+  Retry of definitive FAILED is a guarded
+  alternate flow, not retry of UNKNOWN.
+end note
+@enduml

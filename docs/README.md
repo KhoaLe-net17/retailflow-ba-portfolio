@@ -11,3 +11,9 @@
 | Change/evaluation | [Decisions](07-change-and-evaluation/decision-log.md) | [Exchange change request](07-change-and-evaluation/change-request.md), [evaluation](07-change-and-evaluation/evaluation-plan.md) |
 
 Documented case-study decisions are not real stakeholder approvals. Automated reference checks, browser observations and external business acceptance have separate evidence boundaries.
+
+## Consolidated analysis and handoff
+
+[SRS](03-requirements/software-requirements-specification.md) · [UML model set](04-solution-design/uml-models.md) · [Figma handoff](04-solution-design/figma-handoff.md) · [Stakeholder review pack](../portfolio/stakeholder-demo.md) · [Capability coverage](../portfolio/artifact-coverage.md).
+
+PlantUML SVGs are locally rendered from editable source. Figma contains native editable layers; see its handoff for the preview, frame IDs and remaining export/visual-review limit.

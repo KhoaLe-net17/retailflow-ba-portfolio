@@ -30,3 +30,7 @@ Read the [actual validation report](../docs/06-uat-and-traceability/validation-r
 ## Limits
 
 No client engagement, stakeholder interview, live payment, production deployment or measured business improvement is claimed. The reference slice uses fixture roles, a fixed clock and disposable storage. Real policy validation, durable integration, identity, dispute resolution and operational acceptance remain future work.
+
+## Analysis/design extension · 1.1
+
+Added a [consolidated SRS](../docs/03-requirements/software-requirements-specification.md), five source-controlled UML views rendered locally with PlantUML, and [native Figma desktop designs](../docs/04-solution-design/figma-handoff.md) with editable layers, reusable components and navigation. A [role-based review pack](stakeholder-demo.md) prepares policy, store and finance discussion without claiming an external session. Figma frame construction is verified; complete final visual/export review remains pending tool access. The executable rules and 37-scenario acceptance scope are unchanged.

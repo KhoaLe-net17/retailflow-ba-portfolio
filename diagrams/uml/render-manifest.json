@@ -1,0 +1,47 @@
+[
+  {
+    "source": "diagrams/uml/domain-classes.puml",
+    "sourceSha256": "0c55e4cf9e74ac4843816e6591daf4d80f5d7ea12981b327b948eca596b6aad3",
+    "svg": "diagrams/uml/domain-classes.svg",
+    "svgSha256": "1177f80a7592336eeae0d85baf219dea36d46a402b5917da3d38be7cc797132b",
+    "renderer": "PlantUML version 1.2026.10 / a00edda [2026-11-11 11:04:35 UTC]",
+    "jarSha256": "30a66b81a16127fd3ec560992f31964fe9ae3f1233c614ef4558a4558a21489e",
+    "layout": "PlantUML / Smetana where applicable"
+  },
+  {
+    "source": "diagrams/uml/refund-reconciliation-sequence.puml",
+    "sourceSha256": "b40a3107c1d363f8369dd117846e38ebd49ec0b5097013d9adb526aa6d630851",
+    "svg": "diagrams/uml/refund-reconciliation-sequence.svg",
+    "svgSha256": "c0c59d018e21721223e95326977ed4e7410638f30e5d20789f46d535c1b02ea8",
+    "renderer": "PlantUML version 1.2026.10 / a00edda [2026-11-11 11:04:35 UTC]",
+    "jarSha256": "30a66b81a16127fd3ec560992f31964fe9ae3f1233c614ef4558a4558a21489e",
+    "layout": "PlantUML / Smetana where applicable"
+  },
+  {
+    "source": "diagrams/uml/refund-state-machine.puml",
+    "sourceSha256": "3095cce7a3a7e26b582589ed03ca50d48b8096ab979b22baa2a5b3a4683577f1",
+    "svg": "diagrams/uml/refund-state-machine.svg",
+    "svgSha256": "ba50254579405838fe1a9f517887f26c3d587d132ee5c2e4fed42df6ba1aa92c",
+    "renderer": "PlantUML version 1.2026.10 / a00edda [2026-11-11 11:04:35 UTC]",
+    "jarSha256": "30a66b81a16127fd3ec560992f31964fe9ae3f1233c614ef4558a4558a21489e",
+    "layout": "PlantUML / Smetana where applicable"
+  },
+  {
+    "source": "diagrams/uml/return-state-machine.puml",
+    "sourceSha256": "947b0948de751d6c7076429d517072cf644bded18b43859e6d29799c8d485d26",
+    "svg": "diagrams/uml/return-state-machine.svg",
+    "svgSha256": "aa9de9444d65c552868117b76a0705265d3727b72f86b3bc6e099a6b9202d980",
+    "renderer": "PlantUML version 1.2026.10 / a00edda [2026-11-11 11:04:35 UTC]",
+    "jarSha256": "30a66b81a16127fd3ec560992f31964fe9ae3f1233c614ef4558a4558a21489e",
+    "layout": "PlantUML / Smetana where applicable"
+  },
+  {
+    "source": "diagrams/uml/use-case.puml",
+    "sourceSha256": "cfe0b965ca6a4fc2bb6cae291256964bd4fb1e3cbc751d40c2f0d2b0153fda63",
+    "svg": "diagrams/uml/use-case.svg",
+    "svgSha256": "3b1d231a928d23ce2de905fad43ff9953f7ec1989dcf5209d5f81f294a01d4d3",
+    "renderer": "PlantUML version 1.2026.10 / a00edda [2026-11-11 11:04:35 UTC]",
+    "jarSha256": "30a66b81a16127fd3ec560992f31964fe9ae3f1233c614ef4558a4558a21489e",
+    "layout": "PlantUML / Smetana where applicable"
+  }
+]

@@ -1,5 +1,5 @@
 {
-  "executedAt": "2026-11-23T10:47:39.300Z",
+  "executedAt": "2026-11-28T09:14:29.654Z",
   "node": "v24.22.3",
   "platform": "win32",
   "architecture": "x64",
@@ -16,223 +16,223 @@
       "id": "UAT-01",
       "title": "Order lookup",
       "result": "PASS",
-      "durationMs": 1588
+      "durationMs": 1857
     },
     {
       "id": "UAT-02",
       "title": "Pure preview",
       "result": "PASS",
-      "durationMs": 1131
+      "durationMs": 2059
     },
     {
       "id": "UAT-03",
       "title": "Expired return",
       "result": "PASS",
-      "durationMs": 1231
+      "durationMs": 2406
     },
     {
       "id": "UAT-04",
       "title": "Inclusive cutoff",
       "result": "PASS",
-      "durationMs": 2039
+      "durationMs": 4952
     },
     {
       "id": "UAT-05",
       "title": "Excluded category",
       "result": "PASS",
-      "durationMs": 1061
+      "durationMs": 2455
     },
     {
       "id": "UAT-06",
       "title": "Future delivery",
       "result": "PASS",
-      "durationMs": 1052
+      "durationMs": 2429
     },
     {
       "id": "UAT-07",
       "title": "Atomic reservation",
       "result": "PASS",
-      "durationMs": 1023
+      "durationMs": 2508
     },
     {
       "id": "UAT-08",
       "title": "Over-return",
       "result": "PASS",
-      "durationMs": 1009
+      "durationMs": 2458
     },
     {
       "id": "UAT-09",
       "title": "Multi-line rollback",
       "result": "PASS",
-      "durationMs": 1076
+      "durationMs": 2480
     },
     {
       "id": "UAT-10",
       "title": "High-value approval",
       "result": "PASS",
-      "durationMs": 1023
+      "durationMs": 2381
     },
     {
       "id": "UAT-11",
       "title": "Threshold boundary",
       "result": "PASS",
-      "durationMs": 991
+      "durationMs": 2441
     },
     {
       "id": "UAT-12",
       "title": "Damaged exception",
       "result": "PASS",
-      "durationMs": 1018
+      "durationMs": 2429
     },
     {
       "id": "UAT-13",
       "title": "Self decision",
       "result": "PASS",
-      "durationMs": 1103
+      "durationMs": 2625
     },
     {
       "id": "UAT-14",
       "title": "Unauthorized approval and release",
       "result": "PASS",
-      "durationMs": 1005
+      "durationMs": 2793
     },
     {
       "id": "UAT-15",
       "title": "Accepted inspection",
       "result": "PASS",
-      "durationMs": 1021
+      "durationMs": 2497
     },
     {
       "id": "UAT-16",
       "title": "Disputed goods",
       "result": "PASS",
-      "durationMs": 1084
+      "durationMs": 2551
     },
     {
       "id": "UAT-17",
       "title": "Wrong inspection state or role",
       "result": "PASS",
-      "durationMs": 1000
+      "durationMs": 2600
     },
     {
       "id": "UAT-18",
       "title": "Rounding conservation",
       "result": "PASS",
-      "durationMs": 1031
+      "durationMs": 2424
     },
     {
       "id": "UAT-19",
       "title": "Client amount injection",
       "result": "PASS",
-      "durationMs": 1073
+      "durationMs": 2336
     },
     {
       "id": "UAT-20",
       "title": "Successful refund",
       "result": "PASS",
-      "durationMs": 1041
+      "durationMs": 2670
     },
     {
       "id": "UAT-21",
       "title": "Exact command replay",
       "result": "PASS",
-      "durationMs": 1040
+      "durationMs": 2483
     },
     {
       "id": "UAT-22",
       "title": "Conflicting key",
       "result": "PASS",
-      "durationMs": 1100
+      "durationMs": 2418
     },
     {
       "id": "UAT-23",
       "title": "Guarded payment initiation",
       "result": "PASS",
-      "durationMs": 1024
+      "durationMs": 2553
     },
     {
       "id": "UAT-24",
       "title": "Unknown reconciliation",
       "result": "PASS",
-      "durationMs": 1017
+      "durationMs": 2443
     },
     {
       "id": "UAT-25",
       "title": "Event replay and conflict",
       "result": "PASS",
-      "durationMs": 1127
+      "durationMs": 2495
     },
     {
       "id": "UAT-26",
       "title": "Stale terminal event",
       "result": "PASS",
-      "durationMs": 1063
+      "durationMs": 2488
     },
     {
       "id": "UAT-27",
       "title": "Wrong provider reference",
       "result": "PASS",
-      "durationMs": 1021
+      "durationMs": 2462
     },
     {
       "id": "UAT-28",
       "title": "Definitive failure retry",
       "result": "PASS",
-      "durationMs": 1047
+      "durationMs": 2499
     },
     {
       "id": "UAT-29",
       "title": "Uncertain retry blocked",
       "result": "PASS",
-      "durationMs": 1051
+      "durationMs": 2703
     },
     {
       "id": "UAT-30",
       "title": "Cancellation release",
       "result": "PASS",
-      "durationMs": 1032
+      "durationMs": 2430
     },
     {
       "id": "UAT-31",
       "title": "Concurrent reservation",
       "result": "PASS",
-      "durationMs": 995
+      "durationMs": 2420
     },
     {
       "id": "UAT-32",
       "title": "Cancellation authorization and state",
       "result": "PASS",
-      "durationMs": 1029
+      "durationMs": 2422
     },
     {
       "id": "UAT-33",
       "title": "Operational workbench",
       "result": "PASS",
-      "durationMs": 1005
+      "durationMs": 2500
     },
     {
       "id": "UAT-34",
       "title": "Audit integrity",
       "result": "PASS",
-      "durationMs": 1002
+      "durationMs": 2476
     },
     {
       "id": "UAT-35",
       "title": "HTTP malformed input",
       "result": "PASS",
-      "durationMs": 1138
+      "durationMs": 2760
     },
     {
       "id": "UAT-36",
       "title": "Invalid business input",
       "result": "PASS",
-      "durationMs": 990
+      "durationMs": 2365
     },
     {
       "id": "UAT-37",
       "title": "SQL reconciliation",
       "result": "PASS",
-      "durationMs": 994
+      "durationMs": 2537
     }
   ],
   "structural": [

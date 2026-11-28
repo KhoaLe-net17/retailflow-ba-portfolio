@@ -1,0 +1,97 @@
+@startuml
+!pragma layout smetana
+hide circle
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam class {
+  BackgroundColor #EDF5F0
+BorderColor #446D68
+}
+title RetailFlow - conceptual domain classes (not implemented ORM classes)
+class Order {
+  id: String
+deliveredAt: Instant
+currency: VND
+}
+class OrderLine {
+  id: String
+purchasedQuantity: Integer
+grossVnd: Integer
+discountVnd: Integer
+netPaidVnd: Integer
+}
+class OrderUnit {
+  id: String
+ordinal: Integer
+netPaidVnd: Integer {immutable}
+}
+class ReturnRequest {
+  id: String
+requesterId: String
+storeId: String
+reasonCode: ReasonCode
+status: ReturnStatus
+amountVnd: Integer
+}
+class ReturnUnit {
+  active: Boolean
+}
+class RefundInstruction {
+  id: String
+amountVnd: Integer {immutable}
+status: PaymentStatus
+}
+class PaymentAttempt {
+  id: String
+attemptNo: Integer
+providerRef: String {unique}
+status: PaymentStatus
+}
+class PaymentEvent {
+  id: String {unique}
+fingerprint: String
+disposition: AppliedOrIgnored
+}
+class Actor {
+  id: String
+role: DemoRole
+}
+class AuditEvent {
+  entityId: String
+actorId: String
+action: String
+beforeStatus: String?
+afterStatus: String?
+detail: JSON
+createdAt: Instant
+}
+class IdempotencyRecord {
+  key: String {unique}
+actorId: String
+fingerprint: String
+response: JSON
+}
+Order "1" -- "1..*" OrderLine
+OrderLine "1" -- "1..*" OrderUnit
+Order "1" -- "0..*" ReturnRequest
+ReturnRequest "1" -- "1..*" ReturnUnit
+OrderUnit "1" -- "0..*" ReturnUnit : historical allocations
+ReturnRequest "1" -- "0..1" RefundInstruction
+RefundInstruction "1" -- "1..*" PaymentAttempt
+PaymentAttempt "1" -- "0..*" PaymentEvent
+Actor "1" -- "0..*" ReturnRequest : requests
+Actor "1" -- "0..*" AuditEvent : records
+Actor "1" -- "0..*" IdempotencyRecord : scopes replay
+note bottom of OrderUnit
+  Sum(unit net paid) = original line net paid.
+  At most one active ReturnUnit per OrderUnit.
+  Completed units remain active/unavailable.
+end note
+note bottom of RefundInstruction
+  One logical refund per return.
+  UNKNOWN/PENDING cannot be blindly retried.
+  The actual implementation uses SQL tables
+  and functions, not these conceptual classes.
+end note
+@enduml

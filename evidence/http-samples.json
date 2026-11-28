@@ -131,7 +131,7 @@
     "method": "post",
     "status": 201,
     "body": {
-      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
       "status": "AWAITING_APPROVAL",
       "amountVnd": 250000,
       "currency": "VND"
@@ -142,7 +142,7 @@
     "method": "post",
     "status": 200,
     "body": {
-      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
       "status": "APPROVED"
     }
   },
@@ -151,7 +151,7 @@
     "method": "post",
     "status": 200,
     "body": {
-      "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
       "status": "ACCEPTED"
     }
   },
@@ -160,13 +160,13 @@
     "method": "post",
     "status": 201,
     "body": {
-      "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
-      "returnId": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
+      "returnId": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
       "amountVnd": 250000,
       "currency": "VND",
       "status": "FAILED",
-      "attemptId": "PA-9cf31c28-208e-4735-bbef-840fc6ce13ea",
-      "providerRef": "MOCK-41237e47-4379-466d-9fc2-8bac17fecb5a",
+      "attemptId": "PA-c9de6a0d-9919-4b11-97a7-1cdc6e834096",
+      "providerRef": "MOCK-c9a29ccc-0b22-4816-b310-fe336eaecea2",
       "replayed": false
     }
   },
@@ -175,13 +175,13 @@
     "method": "post",
     "status": 201,
     "body": {
-      "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
-      "returnId": "R-c76814de-880e-4505-8362-4a4bac68d332",
+      "id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
+      "returnId": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
       "amountVnd": 250000,
       "currency": "VND",
       "status": "UNKNOWN",
-      "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e",
-      "providerRef": "MOCK-255e0ebc-6145-4d84-bd0a-497e1e19bf8b",
+      "attemptId": "PA-a646c846-c026-4836-aaa2-f5213b436f50",
+      "providerRef": "MOCK-b8db4e7f-7606-4a2a-a94e-db71af674e01",
       "replayed": false
     }
   },
@@ -202,7 +202,7 @@
     "body": {
       "returns": [
         {
-          "id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "order_id": "O-100",
           "store_id": "S01",
           "reason_code": "DAMAGED",
@@ -215,72 +215,72 @@
       ],
       "refunds": [
         {
-          "id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
-          "return_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
+          "return_id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "amount_vnd": 250000,
           "status": "SUCCEEDED",
           "created_at": "2026-11-23T09:00:00.000Z",
           "updated_at": "2026-11-23T09:00:00.000Z",
-          "attempt_id": "PA-3b66d463-78e7-445e-a0bc-464a445a844e",
-          "provider_ref": "MOCK-255e0ebc-6145-4d84-bd0a-497e1e19bf8b",
+          "attempt_id": "PA-a646c846-c026-4836-aaa2-f5213b436f50",
+          "provider_ref": "MOCK-b8db4e7f-7606-4a2a-a94e-db71af674e01",
           "attempt_no": 2
         }
       ],
       "audit": [
         {
           "id": 7,
-          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "entity_id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "actor_id": "provider-1",
           "action": "RETURN_COMPLETED",
           "before_status": "ACCEPTED",
           "after_status": "COMPLETED",
           "detail": {
-            "refundId": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f"
+            "refundId": "RF-7cb66c28-c827-4254-8155-d18a2472e097"
           },
           "created_at": "2026-11-23T09:00:00.000Z"
         },
         {
           "id": 6,
-          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "entity_id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
           "actor_id": "provider-1",
           "action": "PAYMENT_RECONCILED",
           "before_status": "UNKNOWN",
           "after_status": "SUCCEEDED",
           "detail": {
             "amountVnd": 250000,
-            "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e"
+            "attemptId": "PA-a646c846-c026-4836-aaa2-f5213b436f50"
           },
           "created_at": "2026-11-23T09:00:00.000Z"
         },
         {
           "id": 5,
-          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "entity_id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
           "actor_id": "finance-1",
           "action": "MOCK_PAYMENT_RESULT",
           "before_status": "FAILED",
           "after_status": "UNKNOWN",
           "detail": {
             "amountVnd": 250000,
-            "attemptId": "PA-3b66d463-78e7-445e-a0bc-464a445a844e"
+            "attemptId": "PA-a646c846-c026-4836-aaa2-f5213b436f50"
           },
           "created_at": "2026-11-23T09:00:00.000Z"
         },
         {
           "id": 4,
-          "entity_id": "RF-b40eda0c-a825-4e93-9593-a76cf36b3f2f",
+          "entity_id": "RF-7cb66c28-c827-4254-8155-d18a2472e097",
           "actor_id": "finance-1",
           "action": "MOCK_PAYMENT_RESULT",
           "before_status": "PENDING",
           "after_status": "FAILED",
           "detail": {
             "amountVnd": 250000,
-            "attemptId": "PA-9cf31c28-208e-4735-bbef-840fc6ce13ea"
+            "attemptId": "PA-c9de6a0d-9919-4b11-97a7-1cdc6e834096"
           },
           "created_at": "2026-11-23T09:00:00.000Z"
         },
         {
           "id": 3,
-          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "entity_id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "actor_id": "store-1",
           "action": "GOODS_INSPECTED",
           "before_status": "APPROVED",
@@ -293,7 +293,7 @@
         },
         {
           "id": 2,
-          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "entity_id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "actor_id": "manager-1",
           "action": "APPROVAL_DECISION",
           "before_status": "AWAITING_APPROVAL",
@@ -305,7 +305,7 @@
         },
         {
           "id": 1,
-          "entity_id": "R-c76814de-880e-4505-8362-4a4bac68d332",
+          "entity_id": "R-97d92c27-1c03-4dbc-8e3f-16021327bd3a",
           "actor_id": "agent-1",
           "action": "RETURN_CREATED",
           "before_status": null,
@@ -326,7 +326,7 @@
     "method": "post",
     "status": 201,
     "body": {
-      "id": "R-4d1f543c-bdbc-4b41-8eec-8bde6c73e8e5",
+      "id": "R-5458ac24-9e94-43e2-80e5-46ec38594548",
       "status": "APPROVED",
       "amountVnd": 250000,
       "currency": "VND"
@@ -337,7 +337,7 @@
     "method": "post",
     "status": 200,
     "body": {
-      "id": "R-4d1f543c-bdbc-4b41-8eec-8bde6c73e8e5",
+      "id": "R-5458ac24-9e94-43e2-80e5-46ec38594548",
       "status": "CANCELLED"
     }
   }

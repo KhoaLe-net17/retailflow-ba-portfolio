@@ -1,6 +1,6 @@
-# Validation report · v1.0
+# Validation report · v1.1
 
-**Execution started:** 2026-11-23T10:47:39.300Z
+**Execution started:** 2026-11-28T09:14:29.654Z
 
 **Environment:** v24.22.3 / win32 / x64; PGlite (actual embedded PostgreSQL).
 
@@ -30,3 +30,7 @@ No external stakeholder UAT/sign-off, real provider request or signature verific
 ## Reproduction
 
 Follow the root README: `pnpm test`, then `python tools/validate_contract.py` in the configured Python environment. Both commands replace their evidence files with fresh execution timestamps and actual outcomes. See [defect/retest record](defect-log.md) for issues observed and corrected during this build.
+
+## Analysis/design extension verification · 2026-11-28
+
+34/34 local artifact checks passed: SRS ID/trace coverage, source-to-SVG hashes, valid SVG XML, class boundaries, native Figma structure, navigation evidence, non-empty intake capture and prepared review coverage. See [machine results](../../evidence/analysis-design-validation.json). All five PlantUML SVGs were opened in the browser at full page size; the class model was corrected and re-inspected. Captures are under evidence/design/. Figma has five created editable frames and 24 native navigation reactions; final all-frame visual review and usable SVG retrieval remain pending the Starter tool limit. The intake PNG predates compact-height refinements. No additional stakeholder acceptance is claimed.

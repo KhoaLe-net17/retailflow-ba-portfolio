@@ -8,9 +8,9 @@ An independent business analysis case study connecting objectives to process mod
 
 **Owner:** [Anh Kho](https://github.com/KhoaLe-net17) · Third-year IT student at UEH
 **Scope:** one online channel · three stores · one market · VND · synthetic data
-**Baseline:** portfolio v1.0 / case-study policy 0.1
+**Baseline:** portfolio v1.1 / case-study policy 0.1
 
-[Case study](portfolio/case-study.md) · [Artifact index](docs/README.md) · [Validation](docs/06-uat-and-traceability/validation-report.md) · [Demo script](portfolio/demo-script.md) · [Releases](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/releases)
+[Case study](portfolio/case-study.md) · [SRS](docs/03-requirements/software-requirements-specification.md) · [UML](docs/04-solution-design/uml-models.md) · [Figma](docs/04-solution-design/figma-handoff.md) · [Artifact index](docs/README.md) · [Validation](docs/06-uat-and-traceability/validation-report.md) · [Demo script](portfolio/demo-script.md) · [Releases](https://github.com/KhoaLe-net17/retailflow-ba-portfolio/releases)
 
 > **Evidence boundary:** fictional case study with a runnable local reference model. No client engagement, stakeholder interviews, business sign-off, live payments, production deployment or measured business improvement is claimed. Automated acceptance checks are not business-user UAT.
 
@@ -39,12 +39,12 @@ Business baselines and improvement targets are not measured here. The [evaluatio
 | --- | --- |
 | Discovery | [Initial brief](docs/01-discovery/project-brief.md), [stakeholder/RACI and elicitation guide](docs/01-discovery/stakeholders-and-elicitation.md), [evidence/assumptions](docs/01-discovery/evidence-and-assumptions.md) |
 | Process | Three editable BPMN 2.0 models and SVG exports; context diagram, gap analysis and glossary |
-| Requirements | [14 functional requirements and measurable quality requirements](docs/03-requirements/requirements-catalog.md), [12 rules](docs/03-requirements/business-rules.md), [12 stories with acceptance criteria](docs/03-requirements/user-stories.md), [two use cases](docs/03-requirements/use-cases.md) |
-| Solution | Five-screen HTML prototype, [screen/role specification](docs/04-solution-design/screen-specification.md), return/refund states |
+| Requirements | [14 functional requirements and measurable quality requirements](docs/03-requirements/requirements-catalog.md), [12 rules](docs/03-requirements/business-rules.md), [12 stories with acceptance criteria](docs/03-requirements/user-stories.md), [two use cases](docs/03-requirements/use-cases.md), [consolidated SRS](docs/03-requirements/software-requirements-specification.md) |
+| Solution | Five-screen HTML prototype, [screen/role specification](docs/04-solution-design/screen-specification.md), return/refund states, [five editable PlantUML models](docs/04-solution-design/uml-models.md), [native Figma handoff](docs/04-solution-design/figma-handoff.md) |
 | Data/integration | [ERD/dictionary](docs/05-data-and-integration/data-dictionary.md), 11 PostgreSQL tables, synthetic seed, six analyses, OpenAPI 3.1.1 and seven-step Postman collection |
 | Validation | [37 acceptance scenarios](docs/06-uat-and-traceability/uat-scenarios.md), assertions, RTM, actual SQL/HTTP/schema evidence, defect/retest records and CI |
 | Change/evaluation | [Decisions](docs/07-change-and-evaluation/decision-log.md), [simulated exchange change request](docs/07-change-and-evaluation/change-request.md), evaluation and limitations |
-| Portfolio | Case study, demo script, [CV project entry](portfolio/cv-summary.md), changelog and contribution templates |
+| Portfolio | Case study, demo script, [CV project entry](portfolio/cv-summary.md), [role-based stakeholder review pack](portfolio/stakeholder-demo.md), [capability coverage](portfolio/artifact-coverage.md), changelog and contribution templates |
 
 ## Key workflow
 
@@ -86,6 +86,7 @@ Activate the environment: Windows PowerShell `.\.venv\Scripts\Activate.ps1`; mac
 python -m pip install -r requirements-validation.txt
 python tools/validate_contract.py
 pnpm diagrams
+python tools/check-analysis.py
 ```
 
 The test runner executes business assertions, actual HTTP requests, PostgreSQL queries, BPMN import and local documentation-link checks, writing timestamped evidence. Python validates OpenAPI and actual captured response schemas. CI repeats checks and uploads results without committing generated files.
@@ -97,7 +98,8 @@ View BPMN at **http://127.0.0.1:4173/prototype/process.html** or import the sour
 ```text
 docs/        Discovery, process, requirements, design, data, validation, change
 analysis/    Machine-readable rule, requirement and acceptance catalog
-diagrams/    BPMN, DOT and exported SVG
+diagrams/    BPMN, DOT, PlantUML and tool-rendered SVG
+design/      Native Figma frame IDs, structure evidence and authoring recipe
 prototype/   HTML/CSS/JavaScript prototype and process viewer
 demo/        Local Node HTTP and PostgreSQL reference model
 sql/         Schema, synthetic seed and six analyses
@@ -116,8 +118,9 @@ The selected case-study slice is specified and implemented. Exchanges, warrantie
 
 - [OMG BPMN 2.0.2](https://www.omg.org/spec/BPMN/2.0.2/) and [bpmn-js](https://bpmn.io/toolkit/bpmn-js/) for process modeling/rendering.
 - [Graphviz](https://graphviz.org/) via Viz.js for context and ERD exports.
+- [PlantUML](https://plantuml.com/) with local Java for editable UML/vector exports; [Figma](https://www.figma.com/design/7l9l0eDyTbYw2Y6kRguuIp) for native editable desktop handoff frames.
 - [PostgreSQL via PGlite](https://pglite.dev/docs/) for embedded SQL execution.
 - [OpenAPI 3.1.1](https://spec.openapis.org/oas/v3.1.1.html) for the HTTP contract.
 - Markdown/Git/GitHub, HTML/CSS/JavaScript and Node.js for inspectable documents, interactions, review and checks.
 
-No Figma/Jira deployment, production database, bank integration or real-user UAT is implied. Original content currently has no granted license; dependencies retain their own licenses. See [contribution guidance](CONTRIBUTING.md) and [changelog](CHANGELOG.md).
+Figma designs are native editable frames with static navigation; final all-frame visual review/export retrieval is pending the connected tool limit. No Jira deployment, production database, bank integration or real-user UAT is implied. Original content currently has no granted license; dependencies retain their own licenses. See [contribution guidance](CONTRIBUTING.md) and [changelog](CHANGELOG.md).

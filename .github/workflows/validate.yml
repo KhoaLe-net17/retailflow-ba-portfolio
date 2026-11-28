@@ -2,7 +2,7 @@ name: Validate portfolio
 
 on:
   push:
-    branches: [main, feat/portfolio-v1]
+    branches: [main, feat/portfolio-v1, docs/analysis-design-extension]
   pull_request:
   workflow_dispatch:
 
@@ -31,6 +31,8 @@ jobs:
         run: pnpm test
       - name: Validate OpenAPI and actual response schemas
         run: python tools/validate_contract.py
+      - name: Check analysis source and design evidence
+        run: python tools/check-analysis.py
       - name: Check reproducible Graphviz export
         run: pnpm diagrams
       - uses: actions/upload-artifact@v7

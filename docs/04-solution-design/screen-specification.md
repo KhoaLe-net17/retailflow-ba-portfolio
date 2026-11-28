@@ -1,6 +1,6 @@
 # Screen specifications and permissions
 
-**Artifact:** working HTML/CSS/JavaScript interaction prototype, backed by a synthetic reference API. No Figma work is claimed. Run `pnpm start` and open localhost:4173. Source: [prototype](../../prototype/index.html).
+**Artifact:** working HTML/CSS/JavaScript interaction prototype, backed by a synthetic reference API. A complementary [native Figma handoff](figma-handoff.md) specifies five desktop review frames; its navigation does not execute business transactions. Run `pnpm start` and open localhost:4173. Source: [prototype](../../prototype/index.html).
 
 | Screen | Purpose | Fields / actions | State and validation | Requirements |
 | --- | --- | --- | --- | --- |
