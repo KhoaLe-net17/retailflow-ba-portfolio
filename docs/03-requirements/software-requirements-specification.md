@@ -1,6 +1,6 @@
 # Software Requirements Specification · RetailFlow
 
-**Document:** SRS-01 · **Revision:** 1.1 · **Owner:** Anh Kho · **Date:** 2026-11-28  
+**Document:** SRS-01 · **Revision:** 1.1 · **Owner:** Anh Kho · **Date:** 2026-11-28
 **Business policy:** 0.1 · **Status:** implemented reference slice; business acceptance pending.
 
 ## 1. Purpose and document control

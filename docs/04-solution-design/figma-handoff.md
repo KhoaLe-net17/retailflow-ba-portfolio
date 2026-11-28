@@ -1,6 +1,6 @@
 # Figma UX handoff
 
-**Design file:** [RetailFlow · Returns & Refunds](https://www.figma.com/design/7l9l0eDyTbYw2Y6kRguuIp)  
+**Design file:** [RetailFlow · Returns & Refunds](https://www.figma.com/design/7l9l0eDyTbYw2Y6kRguuIp)
 **Owner:** Anh Kho · **Created:** 2026-11-28 · **Scope:** five desktop design frames, static prototype navigation, fictional/synthetic examples.
 
 The file contains native editable text, auto-layout frames, reusable component instances and semantic variables. It was built with the Figma Plugin API through the connected Figma tools. These are source-based interface designs, not generated raster artwork or flattened screenshots. The HTML reference prototype remains the runnable implementation; the Figma version is a handoff view of the workflow, not a pixel-for-pixel copy or a second payment engine.
