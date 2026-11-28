@@ -1,6 +1,6 @@
 {
   "name": "retailflow-ba-portfolio",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "RetailFlow business analysis case study and synthetic reference demonstrator",
@@ -13,7 +13,8 @@
     "test": "node tools/validate.mjs",
     "diagrams": "node tools/render-diagrams.mjs",
     "check:contract": "python tools/validate_contract.py",
-    "format": "prettier --write demo prototype tools package.json"
+    "format": "prettier --write demo prototype tools package.json",
+    "check:analysis": "python tools/check-analysis.py"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.17",

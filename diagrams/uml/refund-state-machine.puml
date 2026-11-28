@@ -1,0 +1,29 @@
+@startuml
+!pragma layout smetana
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+title RetailFlow - logical refund state machine
+[*] --> PENDING : finance creates instruction / attempt
+PENDING --> UNKNOWN : mock timeout / uncertain result
+PENDING --> SUCCEEDED : confirmed success
+PENDING --> FAILED : definitive failure
+UNKNOWN --> SUCCEEDED : matched provider confirmation
+UNKNOWN --> FAILED : matched definitive failure
+FAILED --> PENDING : guarded retry / new attempt / same instruction
+SUCCEEDED --> [*]
+note right of UNKNOWN
+  Reconcile existing attempt.
+  Never blindly resubmit.
+end note
+note right of FAILED
+  Mock provider guarantees definitive failure.
+  Real provider semantics remain unvalidated.
+end note
+note bottom of SUCCEEDED
+  Completes the corresponding return.
+  Terminal attempts never regress.
+  Logical refund FAILED can create a new attempt;
+  the failed attempt itself remains terminal.
+end note
+@enduml

@@ -1,0 +1,109 @@
+{
+  "fileKey": "7l9l0eDyTbYw2Y6kRguuIp",
+  "fileUrl": "https://www.figma.com/design/7l9l0eDyTbYw2Y6kRguuIp",
+  "createdAt": "2026-11-28",
+  "screens": [
+    {
+      "id": "2:817",
+      "name": "SCR-01 / Start a return",
+      "width": 1360,
+      "height": 1000,
+      "descendants": 62,
+      "counts": {
+        "FRAME": 13,
+        "TEXT": 36,
+        "INSTANCE": 13
+      },
+      "imageFilledNodes": [],
+      "fontFamilies": [
+        "Inter"
+      ]
+    },
+    {
+      "id": "2:892",
+      "name": "SCR-02 / Review the refund",
+      "width": 1360,
+      "height": 1000,
+      "descendants": 46,
+      "counts": {
+        "FRAME": 6,
+        "TEXT": 30,
+        "INSTANCE": 10
+      },
+      "imageFilledNodes": [],
+      "fontFamilies": [
+        "Inter"
+      ]
+    },
+    {
+      "id": "2:941",
+      "name": "SCR-03 / Coordinate the handoff",
+      "width": 1360,
+      "height": 1000,
+      "descendants": 59,
+      "counts": {
+        "FRAME": 9,
+        "TEXT": 36,
+        "INSTANCE": 14
+      },
+      "imageFilledNodes": [],
+      "fontFamilies": [
+        "Inter"
+      ]
+    },
+    {
+      "id": "2:1011",
+      "name": "SCR-04 / Reconcile before retrying",
+      "width": 1360,
+      "height": 1000,
+      "descendants": 48,
+      "counts": {
+        "FRAME": 7,
+        "TEXT": 30,
+        "INSTANCE": 11
+      },
+      "imageFilledNodes": [],
+      "fontFamilies": [
+        "Inter"
+      ]
+    },
+    {
+      "id": "2:1066",
+      "name": "SCR-05 / Explain the decision trail",
+      "width": 1360,
+      "height": 1000,
+      "descendants": 46,
+      "counts": {
+        "FRAME": 6,
+        "TEXT": 30,
+        "INSTANCE": 10
+      },
+      "imageFilledNodes": [],
+      "fontFamilies": [
+        "Inter"
+      ]
+    }
+  ],
+  "navigationLinks": 24,
+  "localComponents": [
+    "2:809",
+    "2:812",
+    "2:815"
+  ],
+  "sourceComponents": {
+    "button": "cc8b558dc7d9684011b6b99ce8e6509399bc836b",
+    "input": "c28150b04d333d34ed9d2b77abd9f2f54e1a878a"
+  },
+  "semanticVariables": {
+    "ink": "VariableID:2:616",
+    "muted": "VariableID:2:617",
+    "canvas": "VariableID:2:618",
+    "white": "VariableID:2:619",
+    "brand": "VariableID:2:620",
+    "lime": "VariableID:2:621",
+    "line": "VariableID:2:622",
+    "warning": "VariableID:2:623",
+    "success": "VariableID:2:624"
+  },
+  "scope": "Editable static UX handoff; transactions are executed in the separate reference app."
+}

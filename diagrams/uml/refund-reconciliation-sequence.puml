@@ -1,0 +1,57 @@
+@startuml
+!pragma layout smetana
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+autonumber
+title RetailFlow - UNKNOWN reconciliation and exact replay
+actor Finance
+participant "Reference HTTP API" as API
+participant "Domain functions" as Domain
+database "Embedded PostgreSQL" as DB
+participant "Mock outcome selector\n(same process)" as Mock
+actor "Provider event fixture" as Provider
+Finance -> API: POST /refunds + Idempotency-Key
+API -> Domain: refund(input, key, actor)
+Domain -> DB: BEGIN / validate actor, ACCEPTED return, key, units
+alt key already matches operation / actor / payload
+  DB --> Domain: original response
+  Domain -> DB: COMMIT (no new instruction or attempt)
+  Domain --> API: replayed = true / original IDs and response
+  API --> Finance: HTTP 200
+else first valid command
+  Domain -> Mock: select explicit simulation outcome
+  Mock --> Domain: UNKNOWN
+  Domain -> DB: insert logical refund, attempt, key response, audit
+  Domain -> DB: COMMIT
+  Domain --> API: original IDs / UNKNOWN
+  API --> Finance: HTTP 201
+end
+note over Finance, DB
+  No retry while PENDING or UNKNOWN.
+  A later exact replay still returns its original
+  response; GET /workbench shows current status.
+end note
+Provider -> API: POST /payment-events (eventId, attemptId, providerRef, SUCCEEDED)
+API -> Domain: paymentEvent(input, provider fixture)
+Domain -> DB: BEGIN / validate provider role, reference, event ID
+alt duplicate event with identical fingerprint
+  Domain -> DB: read recorded disposition / COMMIT
+  API --> Provider: HTTP 200 / replayed = true
+else mismatched reference or reused event ID with changed data
+  Domain -> DB: ROLLBACK
+  API --> Provider: HTTP 409 / no state change
+else valid confirmation on non-terminal attempt
+  Domain -> DB: insert event / mark attempt and refund SUCCEEDED
+  Domain -> DB: mark return COMPLETED / append audit / COMMIT
+  API --> Provider: HTTP 200 / APPLIED
+else event on terminal attempt
+  Domain -> DB: record IGNORED_TERMINAL / audit / COMMIT
+  API --> Provider: HTTP 200 / no state regression
+end
+note over API, Mock
+  No bank/network call is implemented.
+  Production outbox, provider signatures and durable
+  recovery require a separate integration increment.
+end note
+@enduml

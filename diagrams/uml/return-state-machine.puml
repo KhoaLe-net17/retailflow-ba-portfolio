@@ -1,0 +1,28 @@
+@startuml
+!pragma layout smetana
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+title RetailFlow - return state machine
+[*] --> APPROVED : eligible standard request
+[*] --> AWAITING_APPROVAL : amount > 500000 VND or DAMAGED
+AWAITING_APPROVAL --> APPROVED : independent manager approves / reason
+AWAITING_APPROVAL --> REJECTED : manager rejects / release units
+AWAITING_APPROVAL --> CANCELLED : authorized cancellation / release units
+APPROVED --> CANCELLED : authorized pre-inspection cancellation / release
+APPROVED --> ACCEPTED : STORE / passed inspection
+APPROVED --> DISPUTED : STORE / discrepancy / hold units
+ACCEPTED --> COMPLETED : confirmed refund SUCCEEDED
+REJECTED --> [*]
+CANCELLED --> [*]
+COMPLETED --> [*]
+note right of DISPUTED
+  Unresolved hold; payment blocked.
+  Dispute resolution is outside v1.0.
+end note
+note right of ACCEPTED
+  Payment FAILED, UNKNOWN or PENDING
+  does not release accepted goods.
+  No post-inspection cancellation.
+end note
+@enduml

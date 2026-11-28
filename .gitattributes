@@ -8,3 +8,5 @@
 *.csv text eol=lf
 *.bpmn text eol=lf
 *.svg text eol=lf
+# Hash-checked UML source must have identical bytes on Windows and CI.
+*.puml text eol=lf

@@ -10,3 +10,9 @@
 **Tools used:** Markdown/Git/GitHub, BPMN 2.0 and bpmn-js, Graphviz, HTML/CSS/JavaScript, Node.js, PostgreSQL via PGlite, OpenAPI 3.1.1, SQL and automated assertions. A Postman collection is supplied; do not describe Postman execution unless you run it.
 
 This is a project entry, not a complete CV. Add your actual education, contact details, English level, other experience and skills to your own CV. Do not list this as employment or attach invented business-impact percentages. Use only claims you can explain and demonstrate.
+
+## Additional design evidence · 1.1
+
+- Consolidated the existing 14 FR and 6 NFR into an SRS; added five editable UML views using PlantUML and five native Figma desktop frames with reusable components and navigation; prepared a role-based stakeholder review pack.
+
+**Additional tools:** PlantUML/Java and Figma. Figma is static design evidence, with complete final visual/export review pending tool access; stakeholder review is prepared, not conducted. Use this optional bullet only after you can explain and demonstrate the artifacts.
